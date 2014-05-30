@@ -17,7 +17,6 @@ import android.os.Build;
 public class MenuActivity extends Activity {
 
 	TextView viewEmail;
-	TextView viewPassword;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +24,12 @@ public class MenuActivity extends Activity {
 		setContentView(R.layout.activity_menu);
 		
 		viewEmail  = (TextView) findViewById(R.id.activity_menu_textView_email);
-		viewPassword  = (TextView) findViewById(R.id.activity_menu_textView_password);
-		 
+			 
 		 Bundle extras = getIntent().getExtras();
 		 
 		 if(extras != null){
 			 
 			 viewEmail.setText(extras.getString("theEmail"));
-			 viewPassword.setText(extras.getString("thePassword"));
 			 
 		 }
 		
