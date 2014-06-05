@@ -12,7 +12,8 @@ import android.widget.Toast;
 
 public class Main extends Activity {
 
-	Button buttonConfirm;
+	Button buttonLogin;
+	Button buttonRegister;
 	EditText email;
 	EditText password;
 
@@ -21,14 +22,25 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		buttonConfirm = (Button) findViewById(R.id.main_button_confirm);
-		buttonConfirm.setOnClickListener(new OnClickListener() {
+		buttonLogin = (Button) findViewById(R.id.main_button_login);
+		buttonLogin.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// Maybe call the activity "goToLoging" or something more
 				// relevant
 				goToLogin(null);
+			}
+		});
+
+		buttonRegister = (Button) findViewById(R.id.main_button_register);
+		buttonRegister.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// Maybe call the activity "goToLoging" or something more
+				// relevant
+				goToRegister(null);
 			}
 		});
 
@@ -59,11 +71,10 @@ public class Main extends Activity {
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		//Toast.makeText(this, "test1",Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this, "test1",Toast.LENGTH_SHORT).show();
 		if (data != null) {
-			
+
 			if (requestCode == 11111) {
-				
 
 				if (resultCode == RESULT_OK) {
 
@@ -88,6 +99,13 @@ public class Main extends Activity {
 		String emailMessage = email.getText().toString();
 
 		intent.putExtra("theEmail", emailMessage);
+
+		startActivity(intent);
+
+	}
+
+	public void goToRegister(View view) {
+		Intent intent = new Intent(this, RegisterActivity.class);
 
 		startActivity(intent);
 

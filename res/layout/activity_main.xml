@@ -2,19 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+      android:background="@drawable/background_app"
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
+     <ImageView
+        android:id="@+id/main_logo"
+        style="@style/Logo"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo_text" />
+    
+    
     <TextView
         android:id="@+id/main_textView_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+         style="@style/NormalText"
         android:text="@string/Email" />
     
        <EditText
            android:id="@+id/main_editText_email"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+            style="@style/FieldText"
            android:ems="10"
            android:text="" />
     
@@ -23,6 +33,7 @@
         android:id="@+id/main_textView_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/NormalText"
         android:text="@string/Password" />
        
     	<EditText
@@ -30,6 +41,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:ems="10"
+           style="@style/FieldText"
            android:text="" 
            android:inputType="textPassword" >
 		   
@@ -37,9 +49,13 @@
        </EditText>
  
        <Button
-           android:id="@+id/main_button_confirm"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="@string/Button" />
+           android:id="@+id/main_button_login"  
+           style="@style/NormalButton"
+           android:text="@string/Login" />
+       
+       <Button
+           android:id="@+id/main_button_register"
+           style="@style/NormalButton"
+           android:text="@string/Register" />
 
 </LinearLayout>

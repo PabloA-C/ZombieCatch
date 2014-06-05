@@ -22,56 +22,80 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int background_app=0x7f020000;
+        public static final int big_button=0x7f020001;
+        public static final int big_button_disabled=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int icon=0x7f020004;
+        public static final int logo_text=0x7f020005;
+        public static final int normal_button=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
-        public static final int activity_login_button_go=0x7f080003;
-        public static final int activity_login_textView_email=0x7f080001;
-        public static final int activity_login_textView_password=0x7f080002;
-        public static final int activity_menu_button_button1=0x7f08000b;
-        public static final int activity_menu_button_button2=0x7f08000c;
-        public static final int activity_menu_button_button3=0x7f08000d;
-        public static final int activity_menu_button_button4=0x7f08000e;
-        public static final int activity_menu_textView_email=0x7f080009;
-        public static final int activity_menu_textView_password=0x7f08000a;
-        public static final int container=0x7f080000;
-        public static final int main_button_confirm=0x7f080008;
-        public static final int main_editText_email=0x7f080005;
-        public static final int main_editText_password=0x7f080007;
-        public static final int main_textView_email=0x7f080004;
-        public static final int main_textView_password=0x7f080006;
+        public static final int action_settings=0x7f080013;
+        public static final int activity_menu_button_button1=0x7f080007;
+        public static final int activity_menu_button_button2=0x7f080008;
+        public static final int activity_menu_button_button3=0x7f080009;
+        public static final int activity_menu_button_button4=0x7f08000a;
+        public static final int main_button_login=0x7f080005;
+        public static final int main_button_register=0x7f080006;
+        public static final int main_editText_email=0x7f080002;
+        public static final int main_editText_password=0x7f080004;
+        public static final int main_logo=0x7f080000;
+        public static final int main_textView_email=0x7f080001;
+        public static final int main_textView_password=0x7f080003;
+        public static final int register_buttonConfirm=0x7f080012;
+        public static final int register_enterEmail=0x7f08000d;
+        public static final int register_enterEmailText=0x7f08000c;
+        public static final int register_enterPassword=0x7f08000f;
+        public static final int register_enterPasswordAgain=0x7f080011;
+        public static final int register_enterPasswordAgainText=0x7f080010;
+        public static final int register_enterPasswordText=0x7f08000e;
+        public static final int register_userRegistrationText=0x7f08000b;
     }
     public static final class layout {
-        public static final int activity_login=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_menu=0x7f030002;
+        public static final int activity_main=0x7f030000;
+        public static final int activity_menu=0x7f030001;
+        public static final int activity_register=0x7f030002;
     }
     public static final class menu {
         public static final int login=0x7f070000;
         public static final int main=0x7f070001;
         public static final int menu=0x7f070002;
+        public static final int register=0x7f070003;
     }
     public static final class string {
-        public static final int Button=0x7f050004;
-        public static final int Email=0x7f050001;
-        public static final int Password=0x7f050003;
-        public static final int action_settings=0x7f050007;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050006;
-        public static final int textPersonName=0x7f050002;
-        public static final int title_activity_login=0x7f050005;
-        public static final int title_activity_menu=0x7f050008;
+        public static final int Confirm=0x7f050006;
+        public static final int Create=0x7f05000c;
+        public static final int Email=0x7f050003;
+        public static final int Howto=0x7f05000f;
+        public static final int Join=0x7f05000d;
+        public static final int Login=0x7f050007;
+        public static final int Password=0x7f050005;
+        public static final int Profile=0x7f05000e;
+        public static final int Register=0x7f050008;
+        public static final int Register_Registration=0x7f050010;
+        public static final int Register_RepeatPassword=0x7f050011;
+        public static final int action_settings=0x7f05000b;
+        public static final int app_name=0x7f050002;
+        public static final int hello_world=0x7f05000a;
+        public static final int textPersonName=0x7f050004;
+        public static final int title_activity_login=0x7f050009;
+        public static final int title_activity_menu=0x7f050000;
+        public static final int title_activity_register=0x7f050001;
     }
     public static final class style {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -87,8 +111,14 @@ public final class R {
          */
         public static final int AppBaseTheme=0x7f060000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int BigButton=0x7f060007;
+        public static final int BigButtonDisabled=0x7f060008;
+        public static final int BigText=0x7f060004;
+        public static final int FieldText=0x7f060005;
+        public static final int Logo=0x7f060002;
+        public static final int NormalButton=0x7f060006;
+        public static final int NormalText=0x7f060003;
     }
 }

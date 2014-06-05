@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_app"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="${packageName}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/register_userRegistrationText"
+        style="@style/BigText"
+        android:text="@string/Register_Registration" />
+
+    <TextView
+        android:id="@+id/register_enterEmailText"
+        style="@style/NormalText"
+        android:layout_gravity="left"
+        android:text="@string/Email" />
+
+    <EditText
+        android:id="@+id/register_enterEmail"
+        style="@style/FieldText"
+        android:inputType="textEmailAddress"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/register_enterPasswordText"
+        style="@style/NormalText"
+        android:layout_gravity="left"
+        android:text="@string/Password" />
+
+    <EditText
+        android:id="@+id/register_enterPassword"
+        style="@style/FieldText"
+        android:inputType="textPassword"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/register_enterPasswordAgainText"
+        style="@style/NormalText"
+        android:layout_gravity="left"
+        android:text="@string/Register_RepeatPassword" />
+
+    <EditText
+        android:id="@+id/register_enterPasswordAgain"
+        style="@style/FieldText"
+        android:inputType="textPassword"
+        android:text="" />
+
+    <Button
+        android:id="@+id/register_buttonConfirm"
+        style="@style/NormalButton"
+        android:text="@string/Confirm" />
+
+</LinearLayout>
