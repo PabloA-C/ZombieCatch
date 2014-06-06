@@ -3,6 +3,7 @@ package softhealth.zombiecatch;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,21 +18,62 @@ import android.os.Build;
 public class MenuActivity extends Activity {
 
 	String userEmail;
-	
+	Button create, join, profile, howto;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
+
+		create = (Button) findViewById(R.id.menu_button_create);
+		join = (Button) findViewById(R.id.menu_button_join);
+		profile = (Button) findViewById(R.id.menu_button_profile);
+		howto = (Button) findViewById(R.id.menu_button_howto);
+
+		create.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				goToCreate();
+
+			}
+		});
+
+		join.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				goToJoin();
+
+			}
+		});
+
+		profile.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				goToProfile();
+
+			}
+		});
+
+		howto.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				goToHowto();
+
+			}
+		});
 		
-			 
-		 Bundle extras = getIntent().getExtras();
-		 
-		 if(extras != null){
-			 
-			 userEmail = extras.getString("theEmail");
-			 
-		 }
-		
+		Bundle extras = getIntent().getExtras();
+
+		if (extras != null) {
+
+			userEmail = extras.getString("theEmail");
+
+		}
+
 	}
 
 	@Override
@@ -54,6 +96,26 @@ public class MenuActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void goToCreate() {
 
+	}
+
+	public void goToJoin() {
+
+	}
+
+	public void goToProfile() {
+		Intent intent = new Intent(this, ProfileActivity.class);
+
+		intent.putExtra("theEmail", userEmail);
+
+		startActivity(intent);
+		
+		
+	}
+
+	public void goToHowto() {
+
+	}
 
 }

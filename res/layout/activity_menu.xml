@@ -9,22 +9,22 @@
     tools:context="softhealth.zombiecatch.MenuActivity" >
 
     <Button
-        android:id="@+id/activity_menu_button_button1"
+        android:id="@+id/menu_button_create"
         style="@style/BigButtonDisabled"
         android:text="@string/Create" />
 
     <Button
-        android:id="@+id/activity_menu_button_button2"
+        android:id="@+id/menu_button_join"
         style="@style/BigButtonDisabled"
         android:text="@string/Join" />
 
     <Button
-        android:id="@+id/activity_menu_button_button3"
+        android:id="@+id/menu_button_profile"
         style="@style/BigButton"
         android:text="@string/Profile" />
 
     <Button
-        android:id="@+id/activity_menu_button_button4"
+        android:id="@+id/menu_button_howto"
         style="@style/BigButton"
         android:text="@string/Howto" />
 

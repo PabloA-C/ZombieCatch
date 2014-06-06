@@ -38,6 +38,22 @@
             android:name="softhealth.zombiecatch.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name="softhealth.zombiecatch.HowtoActivity"
+            android:label="@string/title_activity_howto" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.StatsActivity"
+            android:label="@string/title_activity_stats" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.LevelupActivity"
+            android:label="@string/title_activity_levelup" >
+        </activity>
     </application>
 
 </manifest>

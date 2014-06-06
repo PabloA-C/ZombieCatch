@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_app"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dip"
+    tools:context="softhealth.zombiecatch.ProfileActivity" >
+
+    
+     <TextView
+        android:id="@+id/profile_userRegistrationText"
+        style="@style/BigText"
+        android:text="@string/title_activity_profile" />
+    
+    
+    <Button
+        android:id="@+id/profile_button_stats"
+        style="@style/BigButton"
+        android:text="@string/title_activity_stats" />
+
+    <Button
+        android:id="@+id/profile_button_levelup"
+        style="@style/BigButton"
+        android:text="@string/Level_up" />
+
+  
+</LinearLayout>
