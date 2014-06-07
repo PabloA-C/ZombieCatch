@@ -42,4 +42,10 @@
 
     <string name="Join_GamesFound">Games found</string>
     
+    <string name="Create_text">Create a game</string>
+    <string name="Create_title">Game title</string>
+    <string name="Create_size">Field size</string>
+    <string name="Create_maxPlayers">Maximum players</string>
+  
+    
 </resources>

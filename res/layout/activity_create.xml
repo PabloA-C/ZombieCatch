@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_app"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/create_title"
+        style="@style/BigText"
+        android:text="@string/Create_text" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/create_setTitle"
+                style="@style/PlainText"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="@string/Create_title" />
+
+            <EditText
+                android:id="@+id/create_inputTitle"
+                style="@style/FieldText"
+                android:inputType="textEmailAddress"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/create_setPassword"
+                style="@style/PlainText"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="@string/Password" />
+
+            <EditText
+                android:id="@+id/create_inputPassword"
+                style="@style/FieldText"
+                android:inputType="textPassword"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/create_size"
+                style="@style/PlainText"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="@string/Create_size" />
+
+            <SeekBar
+                android:id="@+id/create_seekbar_fieldSize"
+                style="@style/SeekBar" />
+
+            <TextView
+                android:id="@+id/create_maxPlayers"
+                style="@style/PlainText"
+                android:layout_gravity="left"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/Create_maxPlayers" />
+
+            <SeekBar
+                android:id="@+id/create_seekbar_maxPlayers"
+                style="@style/SeekBar" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/create_buttonCreate"
+        style="@style/NormalButton"
+        android:layout_marginTop="40dp"
+        android:text="@string/Create" />
+
+</LinearLayout>

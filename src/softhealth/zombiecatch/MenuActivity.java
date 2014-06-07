@@ -97,6 +97,12 @@ public class MenuActivity extends Activity {
 	}
 
 	public void goToCreate() {
+		
+		Intent intent = new Intent(this, CreateActivity.class);
+
+		intent.putExtra("theEmail", userEmail);
+
+		startActivity(intent);
 
 	}
 
