@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_app"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dip"
+    tools:context="softhealth.zombiecatch.ProfileActivity" >
+
+    <TextView
+        android:id="@+id/stats_human"
+        style="@style/BigText"
+        android:text="@string/Human" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/howto_statsHuman"
+                style="@style/BoxText"
+                android:gravity="center"
+                android:text="@string/Howto_text" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/stats_zombie"
+        style="@style/BigText"
+        android:text="@string/Zombie" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/howto_statsZombie"
+                style="@style/BoxText"
+                android:gravity="center"
+                android:text="@string/Howto_text" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

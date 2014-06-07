@@ -1,54 +1,37 @@
 package softhealth.zombiecatch;
 
 import android.app.Activity;
-
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
+import android.os.Build;
 
-public class ProfileActivity extends Activity {
+public class StatsActivity extends Activity {
 
 	String userEmail;
-	Button stats, levelup;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_profile);
-
-		stats = (Button) findViewById(R.id.profile_button_stats);
-		levelup = (Button) findViewById(R.id.profile_button_levelup);
-
-		stats.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				goToStats();
-
-			}
-		});
-
-		levelup.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				goToLevelUp();
-
-			}
-		});
-
-		Bundle extras = getIntent().getExtras();
-
-		if (extras != null) {
-
-			userEmail = extras.getString("theEmail");
-
-		}
-
+		setContentView(R.layout.activity_stats);
+		
+			 
+		 Bundle extras = getIntent().getExtras();
+		 
+		 if(extras != null){
+			 
+			 userEmail = extras.getString("theEmail");
+			 
+		 }
+		
 	}
 
 	@Override
@@ -71,18 +54,6 @@ public class ProfileActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void goToStats() {
 
-		Intent intent = new Intent(this, StatsActivity.class);
-
-		intent.putExtra("theEmail", userEmail);
-
-		startActivity(intent);
-
-	}
-
-	public void goToLevelUp() {
-
-	}
 
 }

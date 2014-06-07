@@ -22,7 +22,6 @@ public class HowToActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_howto);
-		
 			 
 		 Bundle extras = getIntent().getExtras();
 		 

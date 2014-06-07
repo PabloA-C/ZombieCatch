@@ -31,7 +31,9 @@ public final class R {
         public static final int normal_button=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080019;
+        public static final int action_settings=0x7f08001e;
+        public static final int howto_statsHuman=0x7f08001a;
+        public static final int howto_statsZombie=0x7f08001d;
         public static final int howto_text=0x7f080002;
         public static final int howto_title=0x7f080000;
         public static final int main_button_login=0x7f080008;
@@ -57,6 +59,9 @@ public final class R {
         public static final int register_enterPasswordText=0x7f080014;
         public static final int register_userRegistrationText=0x7f080011;
         public static final int scrollView1=0x7f080001;
+        public static final int scrollView2=0x7f08001c;
+        public static final int stats_human=0x7f080019;
+        public static final int stats_zombie=0x7f08001b;
     }
     public static final class layout {
         public static final int activity_howto=0x7f030000;
@@ -64,6 +69,7 @@ public final class R {
         public static final int activity_menu=0x7f030002;
         public static final int activity_profile=0x7f030003;
         public static final int activity_register=0x7f030004;
+        public static final int activity_stats=0x7f030005;
     }
     public static final class menu {
         public static final int login=0x7f070000;
