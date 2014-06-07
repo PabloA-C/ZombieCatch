@@ -1,50 +1,43 @@
 package softhealth.zombiecatch;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
+import android.os.Build;
 
-public class CreateActivity extends Activity {
+public class LobbyActivity extends Activity {
 
 	String userEmail;
-	Button create;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create);
+		setContentView(R.layout.activity_lobby);
+			 
+		 Bundle extras = getIntent().getExtras();
+		 
+		 if(extras != null){
+			 
+			 userEmail = extras.getString("theEmail");
+			 
+		 }
 		
-		create = (Button) findViewById(R.id.create_buttonCreate);
-		
-		create.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				goToLobby();
-				
-			}
-		});
-		
-		Bundle extras = getIntent().getExtras();
-
-		if (extras != null) {
-
-			userEmail = extras.getString("theEmail");
-
-		}
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.register, menu);
+		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
 
@@ -60,14 +53,8 @@ public class CreateActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void goToLobby() {
+	
+	
 
-		Intent intent = new Intent(this, LobbyActivity.class);
-
-		intent.putExtra("theEmail", userEmail);
-
-		startActivity(intent);
-		
-	}
 
 }
