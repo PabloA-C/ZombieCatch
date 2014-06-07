@@ -31,35 +31,39 @@ public final class R {
         public static final int normal_button=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080016;
-        public static final int main_button_login=0x7f080005;
-        public static final int main_button_register=0x7f080006;
-        public static final int main_editText_email=0x7f080002;
-        public static final int main_editText_password=0x7f080004;
-        public static final int main_logo=0x7f080000;
-        public static final int main_textView_email=0x7f080001;
-        public static final int main_textView_password=0x7f080003;
-        public static final int menu_button_create=0x7f080007;
-        public static final int menu_button_howto=0x7f08000a;
-        public static final int menu_button_join=0x7f080008;
-        public static final int menu_button_profile=0x7f080009;
-        public static final int profile_button_levelup=0x7f08000d;
-        public static final int profile_button_stats=0x7f08000c;
-        public static final int profile_userRegistrationText=0x7f08000b;
-        public static final int register_buttonConfirm=0x7f080015;
-        public static final int register_enterEmail=0x7f080010;
-        public static final int register_enterEmailText=0x7f08000f;
-        public static final int register_enterPassword=0x7f080012;
-        public static final int register_enterPasswordAgain=0x7f080014;
-        public static final int register_enterPasswordAgainText=0x7f080013;
-        public static final int register_enterPasswordText=0x7f080011;
-        public static final int register_userRegistrationText=0x7f08000e;
+        public static final int action_settings=0x7f080019;
+        public static final int howto_text=0x7f080002;
+        public static final int howto_title=0x7f080000;
+        public static final int main_button_login=0x7f080008;
+        public static final int main_button_register=0x7f080009;
+        public static final int main_editText_email=0x7f080005;
+        public static final int main_editText_password=0x7f080007;
+        public static final int main_logo=0x7f080003;
+        public static final int main_textView_email=0x7f080004;
+        public static final int main_textView_password=0x7f080006;
+        public static final int menu_button_create=0x7f08000a;
+        public static final int menu_button_howto=0x7f08000d;
+        public static final int menu_button_join=0x7f08000b;
+        public static final int menu_button_profile=0x7f08000c;
+        public static final int profile_button_levelup=0x7f080010;
+        public static final int profile_button_stats=0x7f08000f;
+        public static final int profile_userRegistrationText=0x7f08000e;
+        public static final int register_buttonConfirm=0x7f080018;
+        public static final int register_enterEmail=0x7f080013;
+        public static final int register_enterEmailText=0x7f080012;
+        public static final int register_enterPassword=0x7f080015;
+        public static final int register_enterPasswordAgain=0x7f080017;
+        public static final int register_enterPasswordAgainText=0x7f080016;
+        public static final int register_enterPasswordText=0x7f080014;
+        public static final int register_userRegistrationText=0x7f080011;
+        public static final int scrollView1=0x7f080001;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_menu=0x7f030001;
-        public static final int activity_profile=0x7f030002;
-        public static final int activity_register=0x7f030003;
+        public static final int activity_howto=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_menu=0x7f030002;
+        public static final int activity_profile=0x7f030003;
+        public static final int activity_register=0x7f030004;
     }
     public static final class menu {
         public static final int login=0x7f070000;
@@ -72,7 +76,9 @@ public final class R {
         public static final int Confirm=0x7f05000b;
         public static final int Create=0x7f050011;
         public static final int Email=0x7f050008;
+        public static final int How_to_play=0x7f05001b;
         public static final int Howto=0x7f050014;
+        public static final int Howto_text=0x7f05001c;
         public static final int Human=0x7f050016;
         public static final int Join=0x7f050012;
         public static final int Level_up=0x7f050015;
@@ -128,12 +134,13 @@ public final class R {
         /**  Application theme. 
          */
         public static final int AppTheme=0x7f060001;
-        public static final int BigButton=0x7f060007;
-        public static final int BigButtonDisabled=0x7f060008;
-        public static final int BigText=0x7f060004;
-        public static final int FieldText=0x7f060005;
+        public static final int BigButton=0x7f060008;
+        public static final int BigButtonDisabled=0x7f060009;
+        public static final int BigText=0x7f060005;
+        public static final int BoxText=0x7f060004;
+        public static final int FieldText=0x7f060006;
         public static final int Logo=0x7f060002;
-        public static final int NormalButton=0x7f060006;
+        public static final int NormalButton=0x7f060007;
         public static final int NormalText=0x7f060003;
     }
 }

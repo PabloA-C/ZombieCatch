@@ -116,6 +116,12 @@ public class MenuActivity extends Activity {
 
 	public void goToHowto() {
 
+		Intent intent = new Intent(this, HowToActivity.class);
+
+		intent.putExtra("theEmail", userEmail);
+
+		startActivity(intent);
+		
 	}
 
 }
