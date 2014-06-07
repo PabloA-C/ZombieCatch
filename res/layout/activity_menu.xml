@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dip"
-    tools:context="softhealth.zombiecatch.MenuActivity" >
+    >
 
     <Button
         android:id="@+id/menu_button_create"

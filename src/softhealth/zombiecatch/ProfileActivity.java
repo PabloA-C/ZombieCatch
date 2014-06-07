@@ -83,6 +83,11 @@ public class ProfileActivity extends Activity {
 
 	public void goToLevelUp() {
 
+		Intent intent = new Intent(this, LevelUpActivity.class);
+
+		intent.putExtra("theEmail", userEmail);
+
+		startActivity(intent);
 	}
 
 }

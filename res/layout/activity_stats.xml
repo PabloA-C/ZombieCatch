@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dip"
-    tools:context="softhealth.zombiecatch.ProfileActivity" >
+     >
 
     <TextView
         android:id="@+id/stats_human"

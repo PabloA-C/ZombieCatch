@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_app"
     android:gravity="center"
-    android:orientation="vertical"
-    tools:context="${packageName}.${activityClass}" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/register_userRegistrationText"

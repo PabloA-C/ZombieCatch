@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_app"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dip" >
+
+    <TextView
+        android:id="@+id/levelup_human"
+        style="@style/BigText"
+        android:text="@string/Human" />
+
+    <TextView
+        android:id="@+id/levelup_human_points"
+        style="@style/PlainText"
+        android:text="3 Points left" />
+
+    <HorizontalScrollView
+        android:id="@+id/levelup_skills_human"
+        style="@style/SkillBox"
+        android:layout_width="match_parent"
+        android:layout_height="75dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon" />
+             <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon" />
+              <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon" />
+               <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon" />
+                <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/levelUp_button_lvlHuman"
+        style="@style/NormalButton"
+        android:text="@string/Level_up" />
+
+    <TextView
+        android:id="@+id/levelup_zombie"
+        style="@style/BigText"
+        android:text="@string/Zombie" />
+
+    <TextView
+        android:id="@+id/levelup_zombie_points"
+        style="@style/PlainText"
+        android:text="3 Points left" />
+
+    <HorizontalScrollView
+        android:id="@+id/levelup_skills_zombie"
+        style="@style/SkillBox"
+        android:layout_width="match_parent"
+        android:layout_height="75dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/levelUp_button_lvlZombie"
+        style="@style/NormalButton"
+        android:text="@string/Level_up" />
+
+</LinearLayout>

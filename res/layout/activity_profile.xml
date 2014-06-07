@@ -5,8 +5,7 @@
     android:background="@drawable/background_app"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="30dip"
-    tools:context="softhealth.zombiecatch.ProfileActivity" >
+    android:padding="30dip" >
 
     
      <TextView
