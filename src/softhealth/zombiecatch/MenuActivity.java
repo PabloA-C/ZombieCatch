@@ -102,6 +102,12 @@ public class MenuActivity extends Activity {
 
 	public void goToJoin() {
 
+		Intent intent = new Intent(this, JoinActivity.class);
+
+		intent.putExtra("theEmail", userEmail);
+
+		startActivity(intent);
+		
 	}
 
 	public void goToProfile() {

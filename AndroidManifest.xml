@@ -54,6 +54,27 @@
             android:name="softhealth.zombiecatch.LevelUpActivity"
             android:label="@string/title_activity_levelup" >
         </activity>
+        <activity
+            android:name="softhealth.zombiecatch.JoinActivity"
+            android:label="@string/title_activity_Join" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.CreateActivity"
+            android:label="@string/title_activity_Create" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.LobbyActivity"
+            android:label="@string/title_activity_Lobby" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.GameScreenActivity"
+            android:label="@string/title_activity_GameScreen" >
+        </activity>
+        <activity
+            android:name="softhealth.zombiecatch.ScoreBoardActivity"
+            android:label="@string/title_activity_ScoreBoard" >
+        </activity>
+        
     </application>
 
 </manifest>
