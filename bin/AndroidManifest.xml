@@ -12,7 +12,8 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        android:theme="@style/Background"
+        >
         <activity
             android:name="softhealth.zombiecatch.Main"
             android:label="@string/app_name" >
@@ -56,23 +57,27 @@
         </activity>
         <activity
             android:name="softhealth.zombiecatch.JoinActivity"
-            android:label="@string/title_activity_Join" >
+            android:label="@string/title_activity_join" >
         </activity>
         <activity
             android:name="softhealth.zombiecatch.CreateActivity"
-            android:label="@string/title_activity_Create" >
+            android:label="@string/title_activity_create" >
         </activity>
         <activity
             android:name="softhealth.zombiecatch.LobbyActivity"
-            android:label="@string/title_activity_Lobby" >
+            android:label="@string/title_activity_lobby" >
         </activity>
         <activity
-            android:name="softhealth.zombiecatch.GameScreenActivity"
-            android:label="@string/title_activity_GameScreen" >
+            android:name="softhealth.zombiecatch.GameScreenZActivity"
+            android:label="@string/title_activity_gameScreenZ" >
+        </activity>
+          <activity
+            android:name="softhealth.zombiecatch.GameScreenHActivity"
+            android:label="@string/title_activity_gameScreenH" >
         </activity>
         <activity
             android:name="softhealth.zombiecatch.ScoreBoardActivity"
-            android:label="@string/title_activity_ScoreBoard" >
+            android:label="@string/title_activity_scoreBoard" >
         </activity>
         
     </application>

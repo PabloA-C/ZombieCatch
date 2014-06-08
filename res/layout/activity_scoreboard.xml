@@ -8,23 +8,17 @@
     android:padding="30dip" >
 
     <TextView
-        android:id="@+id/lobby_title"
+        android:id="@+id/scoreboard_title"
         style="@style/BigText"
-        android:text="@string/title_activity_lobby" />
-
-    <TextView
-        android:id="@+id/lobby_waiting"
-        style="@style/PlainText"
-        android:layout_marginBottom="5dp"
-        android:text="@string/Lobby_waiting" />
+        android:text="@string/Scores_ZombiesWin" />
 
     <ScrollView
-        android:id="@+id/create_scrollView_players"
+        android:id="@+id/scoreboard_scrollView_playerpoints"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:id="@+id/lobby_playerList"
+            android:id="@+id/scoreboard_playerList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
@@ -32,8 +26,8 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/lobby_button_ready"
+        android:id="@+id/scoreboard_back"
         style="@style/NormalButton"
-        android:text="@string/Lobby_ready" />
+        android:text="@string/Scores_backToMenu" />
 
 </LinearLayout>

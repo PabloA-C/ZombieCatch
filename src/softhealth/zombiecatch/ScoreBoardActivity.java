@@ -15,26 +15,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.os.Build;
 
-public class LobbyActivity extends Activity {
+public class ScoreBoardActivity extends Activity {
 
 	String userEmail;
-	Button ready;
+	Button menu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lobby);
+		setContentView(R.layout.activity_scoreboard);
 			 
 		 Bundle extras = getIntent().getExtras();
 		 
-		 ready = (Button) findViewById(R.id.lobby_button_ready);
+		 menu = (Button) findViewById(R.id.scoreboard_back);
 		 
-		 ready.setOnClickListener(new OnClickListener() {
+		 menu.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				
-				ready();
+				goToMenu();
 				
 			}
 		});
@@ -68,19 +68,12 @@ public class LobbyActivity extends Activity {
 	}
 
 	
-	public void ready(){
-		
-		goToGameScreen();
-	}
-
 	
-	public void goToGameScreen(){
+	
+	public void goToMenu(){
 		
-		Intent intent = new Intent(this, GameScreenHActivity.class);
-
-		intent.putExtra("theEmail", userEmail);
-
-		startActivity(intent);
+		// Finish con result back to menu, the data should be already on the server.
+		
 	}
 
 }

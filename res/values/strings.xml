@@ -7,13 +7,13 @@
     <string name="title_activity_howto">Howto</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_stats">Stats</string>
-    <string name="title_activity_levelup">LevelUp</string>
-    
-    <string name="title_activity_Join">Join</string>
-    <string name="title_activity_Create">Create</string>
-    <string name="title_activity_Lobby">Lobby</string>
-    <string name="title_activity_GameScreen">GameScreen</string>
-    <string name="title_activity_ScoreBoard">ScoreBoard</string>
+    <string name="title_activity_levelup">LevelUp</string>    
+    <string name="title_activity_join">Join</string>
+    <string name="title_activity_create">Create</string>
+    <string name="title_activity_lobby">Lobby</string>
+    <string name="title_activity_gameScreenZ">GameScreenZ</string>
+    <string name="title_activity_gameScreenH">GameScreenH</string>
+    <string name="title_activity_scoreBoard">ScoreBoard</string>
     
     <string name="app_name">Zombie Catch</string>
     <string name="Email">Email</string>
@@ -49,7 +49,12 @@
 
     <string name="Lobby_ready">Ready</string>
     <string name="Lobby_waiting">Waiting for players</string>
-  
     
+    <string name="Game_healthy">Healthy</string>
+    
+    <string name="Scores_ZombiesWin">Zombies win</string>
+    <string name="Scores_HumansWin">Humans win</string>
+    
+    <string name="Scores_backToMenu">Back</string>
     
 </resources>

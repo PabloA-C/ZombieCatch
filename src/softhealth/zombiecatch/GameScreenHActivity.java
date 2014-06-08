@@ -1,50 +1,53 @@
 package softhealth.zombiecatch;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import android.os.Build;
+import android.widget.ImageView;
 
-public class LobbyActivity extends Activity {
+public class GameScreenHActivity extends Activity {
 
-	String userEmail;
-	Button ready;
-	
+	String email;
+	ImageView image1, image2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lobby);
-			 
-		 Bundle extras = getIntent().getExtras();
-		 
-		 ready = (Button) findViewById(R.id.lobby_button_ready);
-		 
-		 ready.setOnClickListener(new OnClickListener() {
-			
+		setContentView(R.layout.activity_gamescreenh);
+		image1 = (ImageView) findViewById(R.id.gameScreenH_radar);
+
+		image1.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				
-				ready();
-				
+				goToScoreBoard();
+
 			}
 		});
-		 
-		 if(extras != null){
-			 
-			 userEmail = extras.getString("theEmail");
-			 
-		 }
-		
+
+		image2 = (ImageView) findViewById(R.id.gameScreenH_youAre);
+
+		image2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				bitten();
+
+			}
+		});
+
+		Bundle extras = getIntent().getExtras();
+
+		if (extras != null) {
+
+			email = extras.getString("theEmail");
+
+		}
+
 	}
 
 	@Override
@@ -67,20 +70,27 @@ public class LobbyActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-	public void ready(){
-		
-		goToGameScreen();
-	}
+	public void goToScoreBoard() {
 
-	
-	public void goToGameScreen(){
-		
-		Intent intent = new Intent(this, GameScreenHActivity.class);
+		Intent intent = new Intent(this, ScoreBoardActivity.class);
 
-		intent.putExtra("theEmail", userEmail);
+		String emailMessage = email;
+
+		intent.putExtra("theEmail", emailMessage);
 
 		startActivity(intent);
+
 	}
 
+	public void bitten() {
+
+		Intent intent = new Intent(this, GameScreenZActivity.class);
+
+		String emailMessage = email;
+
+		intent.putExtra("theEmail", emailMessage);
+
+		startActivity(intent);
+
+	}
 }

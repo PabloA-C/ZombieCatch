@@ -2,60 +2,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-      android:background="@drawable/background_app"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical" >
 
-     <ImageView
+    <ImageView
         android:id="@+id/main_logo"
         style="@style/Logo"
+        android:layout_marginBottom="-20dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/logo_text" />
-    
-    
+
     <TextView
         android:id="@+id/main_textView_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         style="@style/NormalText"
+        style="@style/PlainText"
+        android:layout_gravity="left"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
         android:text="@string/Email" />
-    
-       <EditText
-           android:id="@+id/main_editText_email"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-            style="@style/FieldText"
-           android:ems="10"
-           android:text="" />
-    
-    
-       <TextView
-        android:id="@+id/main_textView_password"
+
+    <EditText
+        android:id="@+id/main_editText_email"
+        style="@style/FieldText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/NormalText"
+        android:ems="10"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/main_textView_password"
+        style="@style/PlainText"
+        android:layout_gravity="left"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
         android:text="@string/Password" />
-       
-    	<EditText
-           android:id="@+id/main_editText_password"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:ems="10"
-           style="@style/FieldText"
-           android:text="" 
-           android:inputType="textPassword" >
-		   
-           <requestFocus />
-       </EditText>
- 
-       <Button
-           android:id="@+id/main_button_login"  
-           style="@style/NormalButton"
-           android:text="@string/Login" />
-       
-       <Button
-           android:id="@+id/main_button_register"
-           style="@style/NormalButton"
-           android:text="@string/Register" />
+
+    <EditText
+        android:id="@+id/main_editText_password"
+        style="@style/FieldText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/main_button_login"
+        style="@style/NormalButton"
+        android:text="@string/Login" />
+
+    <Button
+        android:id="@+id/main_button_register"
+        style="@style/NormalButton"
+        android:text="@string/Register" />
 
 </LinearLayout>

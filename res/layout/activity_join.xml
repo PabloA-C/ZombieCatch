@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background_app"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dip" >
@@ -30,6 +29,6 @@
     <Button
         android:id="@+id/join_button"
         style="@style/NormalButton"
-        android:text="@string/title_activity_Join" />
+        android:text="@string/title_activity_join" />
 
 </LinearLayout>

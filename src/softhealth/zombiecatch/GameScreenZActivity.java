@@ -12,39 +12,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Build;
 
-public class LobbyActivity extends Activity {
+public class GameScreenZActivity extends Activity {
 
-	String userEmail;
-	Button ready;
-	
+	String email;
+	ImageView image;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lobby);
-			 
-		 Bundle extras = getIntent().getExtras();
-		 
-		 ready = (Button) findViewById(R.id.lobby_button_ready);
-		 
-		 ready.setOnClickListener(new OnClickListener() {
-			
+		setContentView(R.layout.activity_gamescreenz);
+
+		image = (ImageView) findViewById(R.id.gameScreenZ_radar);
+
+		image.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				
-				ready();
-				
+				goToScoreBoard();
+
 			}
 		});
-		 
-		 if(extras != null){
-			 
-			 userEmail = extras.getString("theEmail");
-			 
-		 }
-		
+
+		Bundle extras = getIntent().getExtras();
+
+		if (extras != null) {
+
+			email = extras.getString("theEmail");
+
+		}
+
 	}
 
 	@Override
@@ -67,20 +67,16 @@ public class LobbyActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-	public void ready(){
-		
-		goToGameScreen();
-	}
+	public void goToScoreBoard() {
 
-	
-	public void goToGameScreen(){
-		
-		Intent intent = new Intent(this, GameScreenHActivity.class);
+		Intent intent = new Intent(this, ScoreBoardActivity.class);
 
-		intent.putExtra("theEmail", userEmail);
+		String emailMessage = email;
+
+		intent.putExtra("theEmail", emailMessage);
 
 		startActivity(intent);
+
 	}
 
 }
