@@ -11,8 +11,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:label="@string/title_activity_login" android:name="softhealth.zombiecatch.LoginActivity">
-        </activity>
         <activity android:label="@string/title_activity_menu" android:name="softhealth.zombiecatch.Menu">
         </activity>
         <activity android:label="@string/title_activity_menu" android:name="softhealth.zombiecatch.MenuActivity">

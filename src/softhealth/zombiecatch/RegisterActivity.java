@@ -183,9 +183,9 @@ public class RegisterActivity extends Activity {
 			if (result == null || result.getItems() == null
 					|| result.getItems().size() < 1) {
 				if (result == null) {
-					status = "Retrieving places failed.";
+					status = "Retrieving users failed.";
 				} else {
-					status = "No places found. - ";
+					status = "No users found. - ";
 				}
 
 				return;

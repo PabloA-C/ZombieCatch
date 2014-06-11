@@ -1,7 +1,18 @@
 package softhealth.zombiecatch;
 
+import java.io.IOException;
+import java.util.List;
+
+import softhealth.zombiecatch.userendpoint.Userendpoint;
+import softhealth.zombiecatch.userendpoint.model.CollectionResponseUser;
+import softhealth.zombiecatch.userendpoint.model.User;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +27,7 @@ public class Main extends Activity {
 	Button buttonRegister;
 	EditText email;
 	EditText password;
+	String status;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +41,7 @@ public class Main extends Activity {
 			public void onClick(View v) {
 				// Maybe call the activity "goToLoging" or something more
 				// relevant
-				goToLogin(null);
+				login();
 			}
 		});
 
@@ -57,16 +69,31 @@ public class Main extends Activity {
 	}
 
 	/** Called when the user clicks the Send button */
-	public void goToLogin(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
+	public void login() {
+		status = "OK";
+		if (email.getText().toString().isEmpty()
+				|| password.getText().toString().isEmpty()) {
+			status = "Incorrect Data";
+			Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
 
-		String emailMessage = email.getText().toString();
-		String passwordMessage = password.getText().toString();
+		} else {
 
-		intent.putExtra("theEmail", emailMessage);
-		intent.putExtra("thePassword", passwordMessage);
+			new ListOfPlayerLocationAsyncRetriever().execute();
 
-		startActivityForResult(intent, 1);
+		}
+
+	}
+
+	public void finishOperation(boolean itsCorrect) {
+
+		if (itsCorrect) {
+
+			goToMenu();
+
+		} else {
+
+			Toast.makeText(this, "Invalid credentials.", Toast.LENGTH_SHORT).show();
+		}
 
 	}
 
@@ -75,20 +102,6 @@ public class Main extends Activity {
 		if (data != null) {
 
 			if (requestCode == 1) {
-
-				if (resultCode == RESULT_OK) {
-
-					goToMenu(null);
-
-				} else {
-					Toast.makeText(this,
-							data.getExtras().getString("errorMessage"),
-							Toast.LENGTH_SHORT).show();
-
-				}
-
-			}
-			if (requestCode == 2) {
 
 				if (resultCode == RESULT_OK) {
 
@@ -103,7 +116,7 @@ public class Main extends Activity {
 
 	}
 
-	public void goToMenu(View view) {
+	public void goToMenu() {
 		Intent intent = new Intent(this, MenuActivity.class);
 
 		String emailMessage = email.getText().toString();
@@ -117,8 +130,70 @@ public class Main extends Activity {
 	public void goToRegister(View view) {
 		Intent intent = new Intent(this, RegisterActivity.class);
 
-		startActivityForResult(intent, 2);
+		startActivityForResult(intent, 1);
 
+	}
+
+	private class ListOfPlayerLocationAsyncRetriever extends
+			AsyncTask<Void, Void, CollectionResponseUser> {
+
+		@Override
+		protected CollectionResponseUser doInBackground(Void... params) {
+
+			Userendpoint.Builder endpointBuilder = new Userendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			endpointBuilder = CloudEndpointUtils.updateBuilder(endpointBuilder);
+
+			CollectionResponseUser result;
+
+			Userendpoint endpoint = endpointBuilder.build();
+
+			try {
+				result = endpoint.listUser().execute();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				result = null;
+			}
+			return result;
+		}
+
+		@Override
+		@SuppressWarnings("null")
+		protected void onPostExecute(CollectionResponseUser result) {
+
+			if (result == null || result.getItems() == null
+					|| result.getItems().size() < 1) {
+				if (result == null) {
+					status = "Retrieving users failed.";
+				} else {
+					status = "No users found. - ";
+				}
+
+				return;
+			}
+
+			List<User> users = result.getItems();
+
+			boolean itsCorrect = false;
+
+			for (User u : users) {
+
+				if (u.getEmail().equals(email.getText().toString())) {
+
+					if (u.getPassword().equals(password.getText().toString())) {
+
+						itsCorrect = true;
+					}
+				}
+
+			}
+
+			finishOperation(itsCorrect);
+
+		}
 	}
 
 }
