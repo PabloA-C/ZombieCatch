@@ -1,83 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="softhealth.zombiecatch"
-    android:versionCode="1"
-    android:versionName="1.0" >
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="softhealth.zombiecatch">
 
-    <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15"/>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/icon"
-        android:label="@string/app_name"
-        android:theme="@style/Background"
-        >
-        <activity
-            android:name="softhealth.zombiecatch.Main"
-            android:label="@string/app_name" >
+    <uses-permission android:name="android.permission.INTERNET"/>
+   <application android:allowBackup="true" android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@style/Background">
+        <activity android:label="@string/app_name" android:name="softhealth.zombiecatch.Main">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.LoginActivity"
-            android:label="@string/title_activity_login" >
+        <activity android:label="@string/title_activity_login" android:name="softhealth.zombiecatch.LoginActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.Menu"
-            android:label="@string/title_activity_menu" >
+        <activity android:label="@string/title_activity_menu" android:name="softhealth.zombiecatch.Menu">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.MenuActivity"
-            android:label="@string/title_activity_menu" >
+        <activity android:label="@string/title_activity_menu" android:name="softhealth.zombiecatch.MenuActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.RegisterActivity"
-            android:label="@string/title_activity_register" >
+        <activity android:label="@string/title_activity_register" android:name="softhealth.zombiecatch.RegisterActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.HowToActivity"
-            android:label="@string/title_activity_howto" >
+        <activity android:label="@string/title_activity_howto" android:name="softhealth.zombiecatch.HowToActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.ProfileActivity"
-            android:label="@string/title_activity_profile" >
+        <activity android:label="@string/title_activity_profile" android:name="softhealth.zombiecatch.ProfileActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.StatsActivity"
-            android:label="@string/title_activity_stats" >
+        <activity android:label="@string/title_activity_stats" android:name="softhealth.zombiecatch.StatsActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.LevelUpActivity"
-            android:label="@string/title_activity_levelup" >
+        <activity android:label="@string/title_activity_levelup" android:name="softhealth.zombiecatch.LevelUpActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.JoinActivity"
-            android:label="@string/title_activity_join" >
+        <activity android:label="@string/title_activity_join" android:name="softhealth.zombiecatch.JoinActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.CreateActivity"
-            android:label="@string/title_activity_create" >
+        <activity android:label="@string/title_activity_create" android:name="softhealth.zombiecatch.CreateActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.LobbyActivity"
-            android:label="@string/title_activity_lobby" >
+        <activity android:label="@string/title_activity_lobby" android:name="softhealth.zombiecatch.LobbyActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.GameScreenZActivity"
-            android:label="@string/title_activity_gameScreenZ" >
+        <activity android:label="@string/title_activity_gameScreenZ" android:name="softhealth.zombiecatch.GameScreenZActivity">
         </activity>
-          <activity
-            android:name="softhealth.zombiecatch.GameScreenHActivity"
-            android:label="@string/title_activity_gameScreenH" >
+          <activity android:label="@string/title_activity_gameScreenH" android:name="softhealth.zombiecatch.GameScreenHActivity">
         </activity>
-        <activity
-            android:name="softhealth.zombiecatch.ScoreBoardActivity"
-            android:label="@string/title_activity_scoreBoard" >
+        <activity android:label="@string/title_activity_scoreBoard" android:name="softhealth.zombiecatch.ScoreBoardActivity">
         </activity>
         
     </application>
