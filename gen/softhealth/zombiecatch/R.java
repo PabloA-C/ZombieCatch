@@ -42,7 +42,7 @@ public final class R {
         public static final int zombie=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f08004d;
+        public static final int action_settings=0x7f08004f;
         public static final int create_buttonCreate=0x7f08000a;
         public static final int create_inputPassword=0x7f080005;
         public static final int create_inputTitle=0x7f080003;
@@ -120,6 +120,8 @@ public final class R {
         public static final int stats_exp=0x7f080048;
         public static final int stats_human=0x7f080047;
         public static final int stats_zombie=0x7f08004a;
+        public static final int testprogressbar=0x7f08004e;
+        public static final int testwebview=0x7f08004d;
     }
     public static final class layout {
         public static final int activity_create=0x7f030000;
@@ -135,6 +137,7 @@ public final class R {
         public static final int activity_register=0x7f03000a;
         public static final int activity_scoreboard=0x7f03000b;
         public static final int activity_stats=0x7f03000c;
+        public static final int mydialog=0x7f03000d;
     }
     public static final class menu {
         public static final int login=0x7f070000;
