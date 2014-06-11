@@ -66,7 +66,7 @@ public class Main extends Activity {
 		intent.putExtra("theEmail", emailMessage);
 		intent.putExtra("thePassword", passwordMessage);
 
-		startActivityForResult(intent, 11111);
+		startActivityForResult(intent, 1);
 
 	}
 
@@ -74,7 +74,7 @@ public class Main extends Activity {
 		// Toast.makeText(this, "test1",Toast.LENGTH_SHORT).show();
 		if (data != null) {
 
-			if (requestCode == 11111) {
+			if (requestCode == 1) {
 
 				if (resultCode == RESULT_OK) {
 
@@ -84,6 +84,16 @@ public class Main extends Activity {
 					Toast.makeText(this,
 							data.getExtras().getString("errorMessage"),
 							Toast.LENGTH_SHORT).show();
+
+				}
+
+			}
+			if (requestCode == 2) {
+
+				if (resultCode == RESULT_OK) {
+
+					Toast.makeText(this, "User registered", Toast.LENGTH_SHORT)
+							.show();
 
 				}
 
@@ -107,7 +117,7 @@ public class Main extends Activity {
 	public void goToRegister(View view) {
 		Intent intent = new Intent(this, RegisterActivity.class);
 
-		startActivity(intent);
+		startActivityForResult(intent, 2);
 
 	}
 
