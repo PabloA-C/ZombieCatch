@@ -5,13 +5,18 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="30dip"
-     >
+    android:padding="30dip" >
 
     <TextView
         android:id="@+id/stats_human"
         style="@style/BigText"
         android:text="@string/Human" />
+
+    <TextView
+        android:id="@+id/stats_exp"
+        style="@style/BigText"
+        android:gravity="center"
+        android:text="Experience: " />
 
     <ScrollView
         android:id="@+id/scrollView1"

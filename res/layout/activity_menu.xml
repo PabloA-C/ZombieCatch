@@ -9,12 +9,12 @@
 
     <Button
         android:id="@+id/menu_button_create"
-        style="@style/BigButtonDisabled"
+        style="@style/BigButton"
         android:text="@string/Create" />
 
     <Button
         android:id="@+id/menu_button_join"
-        style="@style/BigButtonDisabled"
+        style="@style/BigButton"
         android:text="@string/Join" />
 
     <Button

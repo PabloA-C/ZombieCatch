@@ -1,0 +1,10 @@
+TODO:
+
+Level up screen:
+
+Create a game:
+
+Game:  hostMail, gameLocation,radious,timeleft,chopperlocation
+
+Player: gameID,userID,Location,isHuman, score:
+

@@ -81,7 +81,7 @@ public class RegisterActivity extends Activity {
 
 		} else {
 
-			new ListOfPlayerLocationAsyncRetriever().execute();
+			new ListOfUserAsyncRetriever().execute();
 
 		}
 
@@ -150,7 +150,7 @@ public class RegisterActivity extends Activity {
 		}
 	}
 
-	private class ListOfPlayerLocationAsyncRetriever extends
+	private class ListOfUserAsyncRetriever extends
 			AsyncTask<Void, Void, CollectionResponseUser> {
 
 		@Override

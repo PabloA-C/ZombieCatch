@@ -42,7 +42,7 @@ public final class R {
         public static final int zombie=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f08004c;
+        public static final int action_settings=0x7f08004d;
         public static final int create_buttonCreate=0x7f08000a;
         public static final int create_inputPassword=0x7f080005;
         public static final int create_inputTitle=0x7f080003;
@@ -64,8 +64,8 @@ public final class R {
         public static final int gameScreenZ_sk_sneaky=0x7f080015;
         public static final int gameScreenZ_skills=0x7f08000e;
         public static final int gameScreenZ_youAre=0x7f080011;
-        public static final int howto_statsHuman=0x7f080048;
-        public static final int howto_statsZombie=0x7f08004b;
+        public static final int howto_statsHuman=0x7f080049;
+        public static final int howto_statsZombie=0x7f08004c;
         public static final int howto_text=0x7f080017;
         public static final int howto_title=0x7f080016;
         public static final int join_button=0x7f08001b;
@@ -116,9 +116,10 @@ public final class R {
         public static final int scoreboard_scrollView_playerpoints=0x7f080044;
         public static final int scoreboard_title=0x7f080043;
         public static final int scrollView1=0x7f080001;
-        public static final int scrollView2=0x7f08004a;
+        public static final int scrollView2=0x7f08004b;
+        public static final int stats_exp=0x7f080048;
         public static final int stats_human=0x7f080047;
-        public static final int stats_zombie=0x7f080049;
+        public static final int stats_zombie=0x7f08004a;
     }
     public static final class layout {
         public static final int activity_create=0x7f030000;

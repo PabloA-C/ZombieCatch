@@ -78,7 +78,7 @@ public class Main extends Activity {
 
 		} else {
 
-			new ListOfPlayerLocationAsyncRetriever().execute();
+			new ListOfUserAsyncRetriever().execute();
 
 		}
 
@@ -134,7 +134,7 @@ public class Main extends Activity {
 
 	}
 
-	private class ListOfPlayerLocationAsyncRetriever extends
+	private class ListOfUserAsyncRetriever extends
 			AsyncTask<Void, Void, CollectionResponseUser> {
 
 		@Override
