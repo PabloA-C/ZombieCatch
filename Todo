@@ -4,6 +4,11 @@ Level up screen:
 
 Explicar el juego en el how to.
 
-Crear Juego, obtener localización en el lobby.
-
 Manage time of the game
+
+
+Game status started after the host enters to allow the rest to enter too.
+
+User press radar to update player locations.
+
+For the example, host is human, the one who joins is a zombie

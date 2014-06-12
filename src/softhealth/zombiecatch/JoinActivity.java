@@ -7,6 +7,7 @@ import java.util.List;
 import softhealth.zombiecatch.gameendpoint.Gameendpoint;
 import softhealth.zombiecatch.gameendpoint.model.CollectionResponseGame;
 import softhealth.zombiecatch.gameendpoint.model.Game;
+
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
@@ -167,8 +168,10 @@ public class JoinActivity extends Activity implements LocationListener {
 		Intent intent = new Intent(this, LobbyActivity.class);
 
 		intent.putExtra("theEmail", userEmail);
+		intent.putExtra("theGame", gameTitle);
 
 		startActivity(intent);
+
 
 	}
 

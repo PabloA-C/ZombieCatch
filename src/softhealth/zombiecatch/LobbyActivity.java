@@ -145,6 +145,8 @@ public class LobbyActivity extends Activity implements LocationListener {
 		// game has started or not.
 
 		if (readyToGo) {
+			
+			goToGameScreen();
 
 		} else {
 
@@ -167,8 +169,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 	public void goToGameScreen() {
 
 		//set game time not 0
-		
-		
+			
 		Intent intent = new Intent(this, GameScreenHActivity.class);
 
 		intent.putExtra("theEmail", userEmail);
