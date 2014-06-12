@@ -183,6 +183,7 @@ public class CreateActivity extends Activity implements LocationListener {
 		Intent intent = new Intent(this, LobbyActivity.class);
 
 		intent.putExtra("theEmail", userEmail);
+		intent.putExtra("theGame", title.getText().toString());
 
 		startActivity(intent);
 
