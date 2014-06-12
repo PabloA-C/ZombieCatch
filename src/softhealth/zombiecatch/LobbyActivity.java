@@ -88,6 +88,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 				ready();
 			}
 		});
+		ready.setText("Refresh");
 
 	}
 
@@ -117,21 +118,28 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 	public void printPlayers() {
 
-		waiting.setText("Players: ");
-		
-		for (String s : playersName) {
+		boolean playerLoaded = false;
 
-			TextView newPlayer = new TextView(this);
-			newPlayer.setText(s);
-			newPlayer.setTextAppearance(this, R.style.PlainText);
-			newPlayer.setGravity(Gravity.CENTER);
+		if (playersName.contains(userEmail)) {
+			waiting.setText("Players: ");
+			readyToGo = true;
+			ready.setText("Ready");
 
-			playerList.addView(newPlayer);
+			for (String s : playersName) {
+
+				TextView newPlayer = new TextView(this);
+				newPlayer.setText(s);
+				newPlayer.setTextAppearance(this, R.style.PlainText);
+				newPlayer.setGravity(Gravity.CENTER);
+
+				playerList.addView(newPlayer);
+
+			}
 
 		}
+
 	}
 
-	
 	public void ready() {
 
 		// CHECK if there are at least two players. check if you are the host to
@@ -142,8 +150,9 @@ public class LobbyActivity extends Activity implements LocationListener {
 		if (readyToGo) {
 
 		} else {
-			Toast.makeText(this, "Waiting for the rest of the players.",
-					Toast.LENGTH_SHORT).show();
+
+			loadPlayers();
+
 		}
 
 	}
@@ -160,6 +169,9 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 	public void goToGameScreen() {
 
+		//set game time not 0
+		
+		
 		Intent intent = new Intent(this, GameScreenHActivity.class);
 
 		intent.putExtra("theEmail", userEmail);
@@ -248,11 +260,12 @@ public class LobbyActivity extends Activity implements LocationListener {
 			try {
 				endpoint.insertPlayer(player).execute();
 
-				loadPlayers();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			loadPlayers();
 
 			return null;
 		}
@@ -312,7 +325,6 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 			}
 			printPlayers();
-			readyToGo = true;
 
 		}
 	}
