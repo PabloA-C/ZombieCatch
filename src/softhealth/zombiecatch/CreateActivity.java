@@ -1,7 +1,19 @@
 package softhealth.zombiecatch;
 
+import java.io.IOException;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,17 +22,21 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class CreateActivity extends Activity {
+public class CreateActivity extends Activity implements LocationListener {
 
-	String userEmail;
-	EditText title, pass;
-	TextView size, maxP;
-	SeekBar maxPlayers, radious;
-	Button create;
-	double playerN, fieldSize;
+	private String userEmail;
+	private EditText title, pass;
+	private TextView size, maxP;
+	private SeekBar maxPlayers, radious;
+	private Button create;
+	private double playerN, fieldSize;
+	private double gameLat, gameLon;
+	private LocationManager locationManager;
+	private String provider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +64,9 @@ public class CreateActivity extends Activity {
 
 			}
 		});
+
+		create.setText("Waiting for GPS");
+		create.setTextColor(Color.DKGRAY);
 
 		Bundle extras = getIntent().getExtras();
 
@@ -95,6 +114,29 @@ public class CreateActivity extends Activity {
 			}
 		});
 
+		create.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				createGame();
+
+			}
+		});
+
+		// Get the location manager
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		// Define the criteria how to select the locatioin provider -> use
+		// default
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, false);
+		Location location = locationManager.getLastKnownLocation(provider);
+
+		// Initialize the location fields
+		if (location != null) {
+			onLocationChanged(location);
+
+		}
 	}
 
 	@Override
@@ -125,6 +167,65 @@ public class CreateActivity extends Activity {
 
 		startActivity(intent);
 
+	}
+
+	public void ready() {
+		create.setText("Create game");
+		create.setTextColor(Color.WHITE);
+	}
+
+	public void createGame() {
+
+		if (!(create.getText().equals("Create game"))) {
+			Toast.makeText(this, "Waiting for GPS location", Toast.LENGTH_SHORT);
+
+		} else {
+
+			maxP.setText(Double.toString(gameLat) + " - "
+					+ Double.toString(gameLon));
+		}
+
+	}
+
+	/* Request updates at startup */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		locationManager.requestLocationUpdates(provider, 0, 0, this);
+	}
+
+	/* Remove the locationlistener updates when Activity is paused */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		locationManager.removeUpdates(this);
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		gameLat = location.getLatitude();
+		gameLon = location.getLongitude();
+		ready();
+
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
 	}
 
 }
