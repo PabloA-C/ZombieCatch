@@ -29,6 +29,8 @@ public class MenuActivity extends Activity {
 		join = (Button) findViewById(R.id.menu_button_join);
 		profile = (Button) findViewById(R.id.menu_button_profile);
 		howto = (Button) findViewById(R.id.menu_button_howto);
+		
+	
 
 		create.setOnClickListener(new OnClickListener() {
 

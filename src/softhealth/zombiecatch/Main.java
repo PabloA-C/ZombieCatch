@@ -58,7 +58,10 @@ public class Main extends Activity {
 
 		email = (EditText) findViewById(R.id.main_editText_email);
 		password = (EditText) findViewById(R.id.main_editText_password);
+		email.setText("Juan");
+		password.setText("e");
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
