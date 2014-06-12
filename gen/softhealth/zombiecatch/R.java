@@ -117,8 +117,8 @@ public final class R {
         public static final int scoreboard_title=0x7f080043;
         public static final int scrollView1=0x7f080001;
         public static final int scrollView2=0x7f08004b;
-        public static final int stats_exp=0x7f080048;
-        public static final int stats_human=0x7f080047;
+        public static final int stats_exp=0x7f080047;
+        public static final int stats_human=0x7f080048;
         public static final int stats_zombie=0x7f08004a;
         public static final int testprogressbar=0x7f08004e;
         public static final int testwebview=0x7f08004d;
