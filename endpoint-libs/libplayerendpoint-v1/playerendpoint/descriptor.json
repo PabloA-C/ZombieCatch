@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/playerendpoint/v1/20140611224454/java/1.16.0-rc/zombiecatch.softhealth-playerendpoint-v1-20140611224454-java-1.16.0-rc-sources.jar", 
-      "path": "zombiecatch.softhealth-playerendpoint-v1-20140611224454-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/playerendpoint/v1/20140612145153/java/1.16.0-rc/zombiecatch.softhealth-playerendpoint-v1-20140612145153-java-1.16.0-rc-sources.jar", 
+      "path": "zombiecatch.softhealth-playerendpoint-v1-20140612145153-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-06-11 22:44"
+      "timestamp": "2014-06-12 14:51"
     }, 
     {
-      "path": "zombiecatch.softhealth-playerendpoint-v1-20140611224454-java-1.16.0-rc.jar.properties", 
+      "path": "zombiecatch.softhealth-playerendpoint-v1-20140612145153-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -701,5 +701,5 @@
   "version": "v1", 
   "language_version": "1.16.0-rc", 
   "id": "playerendpoint:v1", 
-  "revision": 20140611224454
+  "revision": 20140612145153
 }

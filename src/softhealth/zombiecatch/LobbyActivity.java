@@ -1,47 +1,51 @@
 package softhealth.zombiecatch;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import softhealth.zombiecatch.playerendpoint.Playerendpoint;
+import softhealth.zombiecatch.playerendpoint.model.CollectionResponsePlayer;
 import softhealth.zombiecatch.playerendpoint.model.Player;
-import softhealth.zombiecatch.userendpoint.Userendpoint;
-import softhealth.zombiecatch.userendpoint.model.CollectionResponseUser;
-import softhealth.zombiecatch.userendpoint.model.User;
-
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class LobbyActivity extends Activity implements LocationListener {
 
-	String userEmail;
-	String gameTitle;
-	Button ready;
-	double lat, lon;
+	private String userEmail;
+	private String gameTitle;
+	private Button ready;
+	private double lat, lon;
 	private LocationManager locationManager;
 	private String provider;
+	private boolean readyToGo = false;
+	private boolean locationReady = false;
+	private LinearLayout playerList;
+	private List<String> playersName;
+	private TextView waiting;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +53,12 @@ public class LobbyActivity extends Activity implements LocationListener {
 		setContentView(R.layout.activity_lobby);
 		lat = 0.0;
 		lon = 0.0;
-
+		playersName = new ArrayList<String>();
 		Bundle extras = getIntent().getExtras();
 
+		waiting = (TextView) findViewById(R.id.lobby_waiting);
 		ready = (Button) findViewById(R.id.lobby_button_ready);
+		playerList = (LinearLayout) findViewById(R.id.lobby_playerList);
 
 		if (extras != null) {
 
@@ -74,16 +80,15 @@ public class LobbyActivity extends Activity implements LocationListener {
 			onLocationChanged(location);
 
 		}
-		
+
 		ready.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				ready();
-
 			}
 		});
+
 	}
 
 	@Override
@@ -106,6 +111,27 @@ public class LobbyActivity extends Activity implements LocationListener {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void loadPlayers() {
+		new ListOfPlayerAsyncRetriever().execute();
+	}
+
+	public void printPlayers() {
+
+		waiting.setText("Players: ");
+		
+		for (String s : playersName) {
+
+			TextView newPlayer = new TextView(this);
+			newPlayer.setText(s);
+			newPlayer.setTextAppearance(this, R.style.PlainText);
+			newPlayer.setGravity(Gravity.CENTER);
+
+			playerList.addView(newPlayer);
+
+		}
+	}
+
+	
 	public void ready() {
 
 		// CHECK if there are at least two players. check if you are the host to
@@ -113,11 +139,11 @@ public class LobbyActivity extends Activity implements LocationListener {
 		// If you are not the host, checking the time left can help check if the
 		// game has started or not.
 
-		if (lat != 0.0 && lon != 0.0) {
-			new AddPlayerTask().execute();
+		if (readyToGo) {
+
 		} else {
-			Toast.makeText(this, "Waiting for GPS location", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "Waiting for the rest of the players.",
+					Toast.LENGTH_SHORT).show();
 		}
 
 	}
@@ -139,6 +165,50 @@ public class LobbyActivity extends Activity implements LocationListener {
 		intent.putExtra("theEmail", userEmail);
 
 		startActivity(intent);
+	}
+
+	/* Request updates at startup */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		locationManager.requestLocationUpdates(provider, 0, 0, this);
+	}
+
+	/* Remove the locationlistener updates when Activity is paused */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		locationManager.removeUpdates(this);
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		lat = location.getLatitude();
+		lon = location.getLongitude();
+
+		if (!locationReady) {
+			locationReady = true;
+			new AddPlayerTask().execute();
+		}
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
 	}
 
 	private class AddPlayerTask extends AsyncTask<Void, Void, Void> {
@@ -177,7 +247,8 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 			try {
 				endpoint.insertPlayer(player).execute();
-				finishedOperations();
+
+				loadPlayers();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -187,44 +258,63 @@ public class LobbyActivity extends Activity implements LocationListener {
 		}
 	}
 
-	/* Request updates at startup */
-	@Override
-	protected void onResume() {
-		super.onResume();
-		locationManager.requestLocationUpdates(provider, 0, 0, this);
-	}
+	private class ListOfPlayerAsyncRetriever extends
+			AsyncTask<Void, Void, CollectionResponsePlayer> {
 
-	/* Remove the locationlistener updates when Activity is paused */
-	@Override
-	protected void onPause() {
-		super.onPause();
-		locationManager.removeUpdates(this);
-	}
+		@Override
+		protected CollectionResponsePlayer doInBackground(Void... params) {
 
-	@Override
-	public void onLocationChanged(Location location) {
-		lat = location.getLatitude();
-		lon = location.getLongitude();
+			Playerendpoint.Builder endpointBuilder = new Playerendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
 
-	}
+			endpointBuilder = CloudEndpointUtils.updateBuilder(endpointBuilder);
 
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
+			CollectionResponsePlayer result;
 
-	}
+			Playerendpoint endpoint = endpointBuilder.build();
 
-	@Override
-	public void onProviderEnabled(String provider) {
-		Toast.makeText(this, "Enabled new provider " + provider,
-				Toast.LENGTH_SHORT).show();
+			try {
+				result = endpoint.listPlayer().execute();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				result = null;
+			}
+			return result;
+		}
 
-	}
+		@Override
+		@SuppressWarnings("null")
+		protected void onPostExecute(CollectionResponsePlayer result) {
 
-	@Override
-	public void onProviderDisabled(String provider) {
-		Toast.makeText(this, "Disabled provider " + provider,
-				Toast.LENGTH_SHORT).show();
+			if (result == null || result.getItems() == null
+					|| result.getItems().size() < 1) {
+				if (result == null) {
+
+				} else {
+				}
+
+				return;
+			}
+
+			List<Player> players = result.getItems();
+
+			for (Player p : players) {
+
+				System.out.println("Comparing " + p.getGameTitle() + " and "
+						+ gameTitle);
+
+				if (p.getGameTitle().equals(gameTitle)) {
+
+					playersName.add(p.getUserEmail());
+				}
+
+			}
+			printPlayers();
+			readyToGo = true;
+
+		}
 	}
 
 }
