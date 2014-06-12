@@ -2,9 +2,8 @@ package softhealth.zombiecatch;
 
 import java.io.IOException;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
+import softhealth.zombiecatch.gameendpoint.Gameendpoint;
+import softhealth.zombiecatch.gameendpoint.model.Game;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,9 +21,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class CreateActivity extends Activity implements LocationListener {
 
@@ -33,7 +35,8 @@ public class CreateActivity extends Activity implements LocationListener {
 	private TextView size, maxP;
 	private SeekBar maxPlayers, radious;
 	private Button create;
-	private double playerN, fieldSize;
+	private Integer playerN;
+	private double fieldSize;
 	private double gameLat, gameLon;
 	private LocationManager locationManager;
 	private String provider;
@@ -55,15 +58,6 @@ public class CreateActivity extends Activity implements LocationListener {
 		size = (TextView) findViewById(R.id.create_size);
 		maxP.setText("Maximum players: 2");
 		size.setText("Field size: 50 m");
-
-		create.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				goToLobby();
-
-			}
-		});
 
 		create.setText("Waiting for GPS");
 		create.setTextColor(Color.DKGRAY);
@@ -159,16 +153,6 @@ public class CreateActivity extends Activity implements LocationListener {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void goToLobby() {
-
-		Intent intent = new Intent(this, LobbyActivity.class);
-
-		intent.putExtra("theEmail", userEmail);
-
-		startActivity(intent);
-
-	}
-
 	public void ready() {
 		create.setText("Create game");
 		create.setTextColor(Color.WHITE);
@@ -176,14 +160,31 @@ public class CreateActivity extends Activity implements LocationListener {
 
 	public void createGame() {
 
-		if (!(create.getText().equals("Create game"))) {
-			Toast.makeText(this, "Waiting for GPS location", Toast.LENGTH_SHORT);
+		if (!(title.getText().toString().isEmpty())) {
+
+			if (!(create.getText().equals("Create game"))) {
+				Toast.makeText(this, "Waiting for GPS location.",
+						Toast.LENGTH_SHORT);
+
+			} else {
+
+				new AddGameTask().execute();
+			}
 
 		} else {
-
-			maxP.setText(Double.toString(gameLat) + " - "
-					+ Double.toString(gameLon));
+			Toast.makeText(this, "Please enter a title.", Toast.LENGTH_SHORT)
+					.show();
 		}
+
+	}
+
+	public void goToLobby() {
+
+		Intent intent = new Intent(this, LobbyActivity.class);
+
+		intent.putExtra("theEmail", userEmail);
+
+		startActivity(intent);
 
 	}
 
@@ -228,4 +229,55 @@ public class CreateActivity extends Activity implements LocationListener {
 				Toast.LENGTH_SHORT).show();
 	}
 
+	private class AddGameTask extends AsyncTask<Void, Void, Void> {
+
+		/**
+		 * Calls appropriate CloudEndpoint to indicate that user checked into a
+		 * place.
+		 * 
+		 * @param params
+		 *            the place where the user is checking in.
+		 */
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			Game game = new Game();
+
+			// Set the ID of the store where the user is.
+			// This would be replaced by the actual ID in the final version of
+			// the code.
+
+			// chopLat, chopLon, timeLeft;
+
+			game.setGameTitle(title.getText().toString());
+			game.setPass(pass.getText().toString());
+			game.setHostEmail(userEmail);
+			game.setMaxPlayers(playerN);
+			game.setRad(fieldSize);
+			game.setLat(gameLat);
+			game.setLon(gameLon);
+			game.setChopLat(0.0);
+			game.setChopLon(0.0);
+			game.setTimeLeft(1000.0);
+
+			Gameendpoint.Builder builder = new Gameendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+
+			Gameendpoint endpoint = builder.build();
+
+			try {
+				endpoint.insertGame(game).execute();
+				goToLobby();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return null;
+		}
+	}
 }
