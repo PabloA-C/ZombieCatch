@@ -58,8 +58,8 @@ public class Main extends Activity {
 
 		email = (EditText) findViewById(R.id.main_editText_email);
 		password = (EditText) findViewById(R.id.main_editText_password);
-		email.setText("Juan");
-		password.setText("e");
+		email.setText("Pablo");
+		password.setText("q");
 	}
 	
 

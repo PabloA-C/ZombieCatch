@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import softhealth.zombiecatch.playerendpoint.Playerendpoint;
 import softhealth.zombiecatch.playerendpoint.model.CollectionResponsePlayer;
+import softhealth.zombiecatch.playerendpoint.model.Key;
 import softhealth.zombiecatch.playerendpoint.model.Player;
 import android.app.Activity;
 import android.content.Context;
@@ -34,7 +34,8 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 	private String userEmail;
 	private String gameTitle;
-	private Button ready;
+	private String userID;
+	private Button ready, refresh;
 	private double lat, lon;
 	private LocationManager locationManager;
 	private String provider;
@@ -55,6 +56,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 		waiting = (TextView) findViewById(R.id.lobby_waiting);
 		ready = (Button) findViewById(R.id.lobby_button_ready);
+		refresh = (Button) findViewById(R.id.lobby_button_refresh);
 		playerList = (LinearLayout) findViewById(R.id.lobby_playerList);
 
 		if (extras != null) {
@@ -85,7 +87,15 @@ public class LobbyActivity extends Activity implements LocationListener {
 				ready();
 			}
 		});
-		ready.setText("Refresh");
+
+		refresh.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				refresh();
+
+			}
+		});
 
 	}
 
@@ -117,10 +127,11 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 		boolean playerLoaded = false;
 
+		playerList.removeAllViews();
+
 		if (playersName.contains(userEmail)) {
 			waiting.setText("Players: ");
 			readyToGo = true;
-			ready.setText("Ready");
 
 			for (String s : playersName) {
 
@@ -145,14 +156,18 @@ public class LobbyActivity extends Activity implements LocationListener {
 		// game has started or not.
 
 		if (readyToGo) {
-			
+
 			goToGameScreen();
 
 		} else {
-
-			loadPlayers();
-
+			Toast.makeText(this, "Waiting", Toast.LENGTH_SHORT).show();
 		}
+
+	}
+
+	public void refresh() {
+
+		loadPlayers();
 
 	}
 
@@ -168,11 +183,13 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 	public void goToGameScreen() {
 
-		//set game time not 0
-			
+		// set game time not 0
+
 		Intent intent = new Intent(this, GameScreenHActivity.class);
 
 		intent.putExtra("theEmail", userEmail);
+		intent.putExtra("theGame", gameTitle);
+		intent.putExtra("theID", userID);
 
 		startActivity(intent);
 	}
@@ -245,7 +262,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 			player.setUserLon(lon);
 			player.setScore(0.0);
 			player.setSneakLvl(0);
-			player.setIsHuman(false);
+			player.setIsHuman(true);
 
 			Playerendpoint.Builder builder = new Playerendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
@@ -313,12 +330,15 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 			for (Player p : players) {
 
-				System.out.println("Comparing " + p.getGameTitle() + " and "
-						+ gameTitle);
-
 				if (p.getGameTitle().equals(gameTitle)) {
 
 					playersName.add(p.getUserEmail());
+
+					if (p.getUserEmail().equals(userEmail)) {
+
+						userID = String.valueOf(p.getKey().getId());
+					}
+
 				}
 
 			}

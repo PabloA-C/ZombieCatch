@@ -67,6 +67,7 @@ public class JoinActivity extends Activity implements LocationListener {
 		if (extras != null) {
 
 			userEmail = extras.getString("theEmail");
+			gameTitle = extras.getString("theGame");
 
 		}
 
@@ -132,7 +133,7 @@ public class JoinActivity extends Activity implements LocationListener {
 
 		if (!gamesName.isEmpty()) {
 
-			join.setText("Select a game.");
+			join.setText("Select");
 
 			for (String s : gamesName) {
 

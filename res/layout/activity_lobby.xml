@@ -32,6 +32,12 @@
         </LinearLayout>
     </ScrollView>
 
+    
+    <Button
+        android:id="@+id/lobby_button_refresh"
+        style="@style/NormalButton"
+        android:text="Refresh" />
+    
     <Button
         android:id="@+id/lobby_button_ready"
         style="@style/NormalButton"

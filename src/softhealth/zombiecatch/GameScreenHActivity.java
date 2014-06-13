@@ -3,41 +3,52 @@ package softhealth.zombiecatch;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import softhealth.zombiecatch.playerendpoint.Playerendpoint;
+import softhealth.zombiecatch.playerendpoint.Playerendpoint.UpdatePlayer;
 import softhealth.zombiecatch.playerendpoint.model.CollectionResponsePlayer;
 import softhealth.zombiecatch.playerendpoint.model.Player;
+import softhealth.zombiecatch.userendpoint.Userendpoint.UpdateUser;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.DataStore;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-public class GameScreenHActivity extends Activity {
+public class GameScreenHActivity extends Activity implements LocationListener {
 
 	private String email, gameTitle;
+	private Long id;
 	private ImageView radar, image2;
 	private double simLat, simLon;
+	private double lat, lon;
+	private double score = 0.0;
 	private List<Double> lats;
 	private List<Double> lons;
+	private List<String> users;
+	private List<Double> scores;
 	private RelativeLayout rLayout;
+	private LocationManager locationManager;
+	private String provider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,31 +57,11 @@ public class GameScreenHActivity extends Activity {
 
 		lats = new ArrayList<Double>();
 		lons = new ArrayList<Double>();
-
-		// Más a la iz menor longitud
-		// Más abajo menor latitud
-
-		// 51.774091, 19.448061
-		// 51.774238, 19.448759 (50 metros a la derecha)
-		// 51.773653, 19.448190 (50 metros abajo)
-
-		// X -> 50 metros = 150
-		// Y -> 50 metros = 150
-
-		simLat = 51.774238;
-		simLon = 19.448759;
+		users = new ArrayList<String>();
+		scores = new ArrayList<Double>();
 
 		rLayout = (RelativeLayout) findViewById(R.id.gameScreenH_rLayout);
 		radar = (ImageView) findViewById(R.id.gameScreenH_radar);
-
-		radar.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				new ListOfPlayerAsyncRetriever().execute();
-
-			}
-		});
 
 		image2 = (ImageView) findViewById(R.id.gameScreenH_youAre);
 
@@ -89,34 +80,97 @@ public class GameScreenHActivity extends Activity {
 
 			email = extras.getString("theEmail");
 			gameTitle = extras.getString("theGame");
+			id = Long.parseLong(extras.getString("theID"));
+
 		}
 
-		new ListOfPlayerAsyncRetriever().execute();
+		// Get the location manager
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		// Define the criteria how to select the locatioin provider -> use
+		// default
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, false);
+		Location location = locationManager.getLastKnownLocation(provider);
 
+		// Initialize the location fields
+		if (location != null) {
+
+			onLocationChanged(location);
+
+		}
+
+		ScheduledExecutorService scheduleTaskExecutor = Executors
+				.newScheduledThreadPool(5);
+
+		// This schedule a runnable task every 2 minutes
+		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+			public void run() {
+
+				System.out.println("Updating");
+				updatePlayers();
+
+			}
+		}, 0, 5, TimeUnit.SECONDS);
+
+		// Más a la iz menor longitud
+		// Más abajo menor latitud
+
+		// 51.774091, 19.448061
+		// 51.774238, 19.448759 (50 metros a la derecha)
+		// 51.773653, 19.448190 (50 metros abajo)
+
+		// X -> 50 metros = 150
+		// Y -> 50 metros = 150
+
+	}
+
+	public void updatePlayers() {
+		new ListOfPlayerAsyncRetriever().execute();
+		new UpdatePlayerTask().execute();
 	}
 
 	public void refreshRadar() {
 
-		// <ImageView
-		// android:id="@+id/imageView1"
-		// android:layout_width="wrap_content"
-		// android:layout_height="wrap_content"
-		// android:layout_marginLeft="0dp"
-		// android:layout_marginTop="0dp"
-		// android:layout_alignParentTop="true"
-		// android:src="@drawable/dot_blue" />
+		if (lats.size() != 0) {
 
-		ImageView dot = new ImageView(this);
-		dot.setImageResource(R.drawable.dot_blue);
-		
-		
-		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-		lp.setMargins(150, 150, 0, 0);
-		dot.setLayoutParams(lp);
-		
-		rLayout.addView(dot, 1);
-		
-		
+			for (double uLat : lats) {
+
+				double uLon = lons.get(lats.indexOf(uLat));
+
+				double diffLat = uLat - lat;
+				double diffLon = uLon - lon;
+
+				if (diffLat < 1) {
+					diffLat = 0;
+				}
+				if (diffLon < 10) {
+					diffLon = 0;
+				}
+
+				int dLat = (int) (Math.abs(diffLat) * 2);
+				int dLon = (int) (Math.abs(diffLon) * 2);
+
+				ImageView dot = new ImageView(this);
+				dot.setImageResource(R.drawable.dot_blue);
+
+				RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
+				lp.setMargins(dLat + 150, dLon + 150, 0, 0);
+				dot.setLayoutParams(lp);
+
+				rLayout.addView(dot, 1);
+				System.out.println("Dot should be added");
+
+			}
+
+		} else {
+
+			if (rLayout.getChildCount() > 1) {
+				rLayout.removeViewAt(1);
+			}
+
+		}
 
 	}
 
@@ -182,6 +236,7 @@ public class GameScreenHActivity extends Activity {
 
 			try {
 				result = endpoint.listPlayer().execute();
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -215,16 +270,129 @@ public class GameScreenHActivity extends Activity {
 
 					if (p.getIsHuman()) {
 
-						lats.add(p.getUserLat());
-						lons.add(p.getUserLon());
+						if (!(p.getUserEmail().equals(email))) {
 
+							if (!(users.contains(p.getUserEmail()))) {
+								lats.add(p.getUserLat());
+								lons.add(p.getUserLon());
+								users.add(p.getUserEmail());
+								scores.add(p.getScore());
+
+							} else {
+
+								if (scores.get(users.indexOf(p.getUserEmail())) < p
+										.getScore()) {
+
+									lats.add(users.indexOf(p.getUserEmail()),
+											p.getUserLat());
+									lons.add(users.indexOf(p.getUserEmail()),
+											p.getUserLon());
+									scores.add(users.indexOf(p.getUserEmail()),
+											p.getScore());
+
+								}
+
+							}
+
+						}
 					}
-
 				}
 
 			}
 			refreshRadar();
 
+		}
+	}
+
+	/* Request updates at startup */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		locationManager.requestLocationUpdates(provider, 0, 0, this);
+	}
+
+	/* Remove the locationlistener updates when Activity is paused */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		locationManager.removeUpdates(this);
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		//lat = location.getLatitude();
+		//lon = location.getLongitude();
+
+		lat=lat+20;
+		lon=lon+20;
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this, "Enabled new provider " + provider,
+				Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this, "Disabled provider " + provider,
+				Toast.LENGTH_SHORT).show();
+	}
+
+	private class UpdatePlayerTask extends AsyncTask<Void, Void, Void> {
+
+		/**
+		 * Calls appropriate CloudEndpoint to indicate that user checked into a
+		 * place.
+		 * 
+		 * @param params
+		 *            the place where the user is checking in.
+		 */
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			Player player = new Player();
+
+			// Set the ID of the store where the user is.
+			// This would be replaced by the actual ID in the final version of
+			// the code.
+
+			player.setGameTitle(gameTitle);
+			player.setUserEmail(email);
+			player.setUserLat(lat+20);
+			player.setUserLon(lon+20);
+			player.setScore(score + 2.0);
+			score= player.getScore();
+			lat = player.getUserLat();
+			lon = player.getUserLon();
+			player.setSneakLvl(0);
+			player.setIsHuman(true);
+
+			Playerendpoint.Builder builder = new Playerendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+
+			Playerendpoint endpoint = builder.build();
+
+			try {
+				endpoint.insertPlayer(player).execute();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return null;
 		}
 	}
 

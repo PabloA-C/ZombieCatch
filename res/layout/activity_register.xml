@@ -14,7 +14,7 @@
         android:id="@+id/register_enterEmailText"
         style="@style/NormalText"
         android:layout_gravity="left"
-        android:text="@string/Email" />
+        android:text="User name" />
 
     <EditText
         android:id="@+id/register_enterEmail"

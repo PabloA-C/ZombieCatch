@@ -1,14 +1,73 @@
-TODO:
-
-Level up screen:
 
 Explicar el juego en el how to.
 
-Manage time of the game
-
-
-Game status started after the host enters to allow the rest to enter too.
 
 User press radar to update player locations.
 
 For the example, host is human, the one who joins is a zombie
+
+Check if you have been bitten every 5 seconds, decrease game time every ** seconds
+
+
+
+
+HOST Zombie
+
+Every 5 seconds, send and get locations of all players.
+If you bit, select player.
+
+
+List<Player> players = result.getItems();
+
+			lats.clear();
+			lons.clear();
+
+			for (Player p : players) {
+
+				if (p.getGameTitle().equals(gameTitle)) {
+					System.out.println("Found players");
+
+					if (p.getIsHuman()) {
+						if (p.getUserEmail() != email) {
+							lats.add(p.getUserLat());
+							lons.add(p.getUserLon());
+						} else {
+
+							p.setUserLat(lat);
+							p.setUserLon(lon);
+						}
+
+					}
+
+				}
+
+			}
+			refreshRadar();
+
+HOST Human
+
+Every 5 seconds:
+
+send and get locations of humans.
+check if bitten.
+
+
+
+
+
+CharSequence colors[] = new CharSequence[] {"red", "green", "blue", "black"};
+
+AlertDialog.Builder builder = new AlertDialog.Builder(this);
+builder.setTitle("Pick a color");
+builder.setItems(colors, new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        // the user clicked on colors[which]
+    }
+});
+builder.show();
+
+
+
+
+Join man   HUMAN
