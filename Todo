@@ -9,6 +9,9 @@ For the example, host is human, the one who joins is a zombie
 Check if you have been bitten every 5 seconds, decrease game time every ** seconds
 
 
+//lo deje tras creo arreglar el que solo se muestre un dot
+
+
 
 
 HOST Zombie
@@ -17,32 +20,6 @@ Every 5 seconds, send and get locations of all players.
 If you bit, select player.
 
 
-List<Player> players = result.getItems();
-
-			lats.clear();
-			lons.clear();
-
-			for (Player p : players) {
-
-				if (p.getGameTitle().equals(gameTitle)) {
-					System.out.println("Found players");
-
-					if (p.getIsHuman()) {
-						if (p.getUserEmail() != email) {
-							lats.add(p.getUserLat());
-							lons.add(p.getUserLon());
-						} else {
-
-							p.setUserLat(lat);
-							p.setUserLon(lon);
-						}
-
-					}
-
-				}
-
-			}
-			refreshRadar();
 
 HOST Human
 
@@ -53,19 +30,6 @@ check if bitten.
 
 
 
-
-
-CharSequence colors[] = new CharSequence[] {"red", "green", "blue", "black"};
-
-AlertDialog.Builder builder = new AlertDialog.Builder(this);
-builder.setTitle("Pick a color");
-builder.setItems(colors, new DialogInterface.OnClickListener() {
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        // the user clicked on colors[which]
-    }
-});
-builder.show();
 
 
 

@@ -106,11 +106,10 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 
-				System.out.println("Updating");
 				updatePlayers();
 
 			}
-		}, 0, 5, TimeUnit.SECONDS);
+		}, 0, 20, TimeUnit.SECONDS);
 
 		// Más a la iz menor longitud
 		// Más abajo menor latitud
@@ -133,36 +132,30 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 		if (lats.size() != 0) {
 
-			for (double uLat : lats) {
+			double diffLat = lats.get(0) - lat;
+			double diffLon = lons.get(0) - lon;
 
-				double uLon = lons.get(lats.indexOf(uLat));
-
-				double diffLat = uLat - lat;
-				double diffLon = uLon - lon;
-
-				if (diffLat < 1) {
-					diffLat = 0;
-				}
-				if (diffLon < 10) {
-					diffLon = 0;
-				}
-
-				int dLat = (int) (Math.abs(diffLat) * 2);
-				int dLon = (int) (Math.abs(diffLon) * 2);
-
-				ImageView dot = new ImageView(this);
-				dot.setImageResource(R.drawable.dot_blue);
-
-				RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.WRAP_CONTENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT);
-				lp.setMargins(dLat + 150, dLon + 150, 0, 0);
-				dot.setLayoutParams(lp);
-
-				rLayout.addView(dot, 1);
-				System.out.println("Dot should be added");
-
+			if (diffLat < 1) {
+				diffLat = 0;
 			}
+			if (diffLon < 10) {
+				diffLon = 0;
+			}
+
+			int dLat = (int) (Math.abs(diffLat) * 2);
+			int dLon = (int) (Math.abs(diffLon) * 2);
+
+			ImageView dot = new ImageView(this);
+			dot.setImageResource(R.drawable.dot_blue);
+
+			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.WRAP_CONTENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT);
+			lp.setMargins(dLat + 150, dLon + 150, 0, 0);
+			dot.setLayoutParams(lp);
+
+			rLayout.addView(dot, 1);
+			System.out.println("Dot should be added");
 
 		} else {
 
@@ -261,8 +254,8 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 			List<Player> players = result.getItems();
 
-			lats.clear();
-			lons.clear();
+			lats = new ArrayList<Double>();
+			lons = new ArrayList<Double>();
 
 			for (Player p : players) {
 
@@ -320,12 +313,12 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		//lat = location.getLatitude();
-		//lon = location.getLongitude();
+		// lat = location.getLatitude();
+		// lon = location.getLongitude();
 
-		lat=lat+20;
-		lon=lon+20;
-		
+		lat = lat + 20;
+		lon = lon + 20;
+
 	}
 
 	@Override
@@ -367,10 +360,10 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 			player.setGameTitle(gameTitle);
 			player.setUserEmail(email);
-			player.setUserLat(lat+20);
-			player.setUserLon(lon+20);
+			player.setUserLat(lat + 20);
+			player.setUserLon(lon + 20);
 			player.setScore(score + 2.0);
-			score= player.getScore();
+			score = player.getScore();
 			lat = player.getUserLat();
 			lon = player.getUserLon();
 			player.setSneakLvl(0);
