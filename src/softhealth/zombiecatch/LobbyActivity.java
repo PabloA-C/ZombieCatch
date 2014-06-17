@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 	private String provider;
 	private boolean readyToGo = false;
 	private boolean locationReady = false;
-	private LinearLayout playerList;
+	private ScrollView playerScroll;
 	private List<String> playersName;
 	private TextView waiting;
 
@@ -57,7 +58,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 		waiting = (TextView) findViewById(R.id.lobby_waiting);
 		ready = (Button) findViewById(R.id.lobby_button_ready);
 		refresh = (Button) findViewById(R.id.lobby_button_refresh);
-		playerList = (LinearLayout) findViewById(R.id.lobby_playerList);
+		playerScroll = (ScrollView) findViewById(R.id.lobby_scrollView_players);
 
 		if (extras != null) {
 
@@ -120,29 +121,36 @@ public class LobbyActivity extends Activity implements LocationListener {
 	}
 
 	public void loadPlayers() {
+		playersName.clear();
 		new ListOfPlayerAsyncRetriever().execute();
 	}
 
 	public void printPlayers() {
 
-		boolean playerLoaded = false;
-
-		playerList.removeAllViews();
+		
+		
 
 		if (playersName.contains(userEmail)) {
 			waiting.setText("Players: ");
 			readyToGo = true;
+			String text = "";
 
 			for (String s : playersName) {
 
-				TextView newPlayer = new TextView(this);
-				newPlayer.setText(s);
-				newPlayer.setTextAppearance(this, R.style.PlainText);
-				newPlayer.setGravity(Gravity.CENTER);
-
-				playerList.addView(newPlayer);
+				text += "\n" + s;
 
 			}
+			
+			System.out.println(text);
+
+			TextView newPlayer = new TextView(this);
+			newPlayer.setText(text);
+			newPlayer.setTextAppearance(this, R.style.PlainText);
+			newPlayer.setGravity(Gravity.CENTER);
+
+			playerScroll.removeAllViews();
+			playerScroll.addView(newPlayer,0);
+			
 
 		}
 
@@ -332,16 +340,20 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 				if (p.getGameTitle().equals(gameTitle)) {
 
-					playersName.add(p.getUserEmail());
+					if (p.getIsHuman()) {
 
-					if (p.getUserEmail().equals(userEmail)) {
+						String pMail = p.getUserEmail();
 
-						userID = String.valueOf(p.getKey().getId());
+						if (!(playersName.contains(pMail))) {
+
+							playersName.add(pMail);
+
+						} 
 					}
-
 				}
 
 			}
+
 			printPlayers();
 
 		}

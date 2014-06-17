@@ -34,6 +34,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/radar" />
+            
         </RelativeLayout>
 
         <TextView

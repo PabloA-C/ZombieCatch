@@ -109,7 +109,7 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 				updatePlayers();
 
 			}
-		}, 0, 20, TimeUnit.SECONDS);
+		}, 0, 30, TimeUnit.SECONDS);
 
 		// Más a la iz menor longitud
 		// Más abajo menor latitud
@@ -124,16 +124,28 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 	}
 
 	public void updatePlayers() {
+
 		new ListOfPlayerAsyncRetriever().execute();
-		new UpdatePlayerTask().execute();
+	//	new UpdatePlayerTask().execute();
 	}
 
 	public void refreshRadar() {
 
-		if (lats.size() != 0) {
+		while (rLayout.getChildCount() > 1) {
 
-			double diffLat = lats.get(0) - lat;
-			double diffLon = lons.get(0) - lon;
+			rLayout.removeViewAt(2);
+
+		}
+
+		for (String user : users) {
+			
+			int index = users.indexOf(user);
+
+			Double uLat = lats.get(index);
+			Double uLon = lons.get(index);
+
+			double diffLat = uLat - lat;
+			double diffLon = uLon - lon;
 
 			if (diffLat < 1) {
 				diffLat = 0;
@@ -142,9 +154,11 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 				diffLon = 0;
 			}
 
-			int dLat = (int) (Math.abs(diffLat) * 2);
-			int dLon = (int) (Math.abs(diffLon) * 2);
-
+			int dLat = (int) Math.floor((Math.abs(diffLat) ));
+			int dLon = (int) Math.floor((Math.abs(diffLon) ));
+			
+			System.out.println(dLat +" "+ dLon);
+		
 			ImageView dot = new ImageView(this);
 			dot.setImageResource(R.drawable.dot_blue);
 
@@ -154,14 +168,9 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 			lp.setMargins(dLat + 150, dLon + 150, 0, 0);
 			dot.setLayoutParams(lp);
 
-			rLayout.addView(dot, 1);
+			rLayout.addView(dot, index);
 			System.out.println("Dot should be added");
-
-		} else {
-
-			if (rLayout.getChildCount() > 1) {
-				rLayout.removeViewAt(1);
-			}
+					
 
 		}
 
@@ -254,8 +263,10 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 			List<Player> players = result.getItems();
 
-			lats = new ArrayList<Double>();
-			lons = new ArrayList<Double>();
+			users.clear();
+			lats.clear();
+			lons.clear();
+			scores.clear();
 
 			for (Player p : players) {
 
@@ -263,25 +274,32 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 					if (p.getIsHuman()) {
 
-						if (!(p.getUserEmail().equals(email))) {
+						String pMail = p.getUserEmail();
+						Double pLat = p.getUserLat();
+						Double pLon = p.getUserLon();
+						Double pScore = p.getScore();
 
-							if (!(users.contains(p.getUserEmail()))) {
-								lats.add(p.getUserLat());
-								lons.add(p.getUserLon());
-								users.add(p.getUserEmail());
-								scores.add(p.getScore());
+						if (!(pMail.equals(email))) {
+
+							if (!(users.contains(pMail))) {
+								lats.add(pLat);
+								lons.add(pLat);
+								users.add(pMail);
+								scores.add(pScore);
 
 							} else {
 
-								if (scores.get(users.indexOf(p.getUserEmail())) < p
-										.getScore()) {
+								int index = users.indexOf(pMail);
 
-									lats.add(users.indexOf(p.getUserEmail()),
-											p.getUserLat());
-									lons.add(users.indexOf(p.getUserEmail()),
-											p.getUserLon());
-									scores.add(users.indexOf(p.getUserEmail()),
-											p.getScore());
+								if (scores.get(index) < pScore) {
+
+									lons.remove(index);
+									lats.remove(index);
+									scores.remove(index);
+
+									lons.add(index, pLon);
+									lats.add(index, pLat);
+									scores.add(index, pScore);
 
 								}
 
@@ -292,6 +310,7 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 				}
 
 			}
+
 			refreshRadar();
 
 		}

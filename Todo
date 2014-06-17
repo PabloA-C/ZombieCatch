@@ -4,30 +4,6 @@ Explicar el juego en el how to.
 
 User press radar to update player locations.
 
-For the example, host is human, the one who joins is a zombie
-
-Check if you have been bitten every 5 seconds, decrease game time every ** seconds
-
-
-//lo deje tras creo arreglar el que solo se muestre un dot
-
-
-
-
-HOST Zombie
-
-Every 5 seconds, send and get locations of all players.
-If you bit, select player.
-
-
-
-HOST Human
-
-Every 5 seconds:
-
-send and get locations of humans.
-check if bitten.
-
 
 
 
