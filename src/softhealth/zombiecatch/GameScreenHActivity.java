@@ -60,10 +60,18 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 		scores = new ArrayList<Double>();
 
 		rLayout = (RelativeLayout) findViewById(R.id.gameScreenH_rLayout);
-		radar = (ImageView) findViewById(R.id.gameScreenH_radar);
 
 		image2 = (ImageView) findViewById(R.id.gameScreenH_youAre);
 
+		rLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				remove();
+				
+			}
+		});
+		
 		image2.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -123,20 +131,20 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 	public void updatePlayers() {
 
-		new ListOfPlayerAsyncRetriever().execute();
-	//	new UpdatePlayerTask().execute();
+		// new ListOfPlayerAsyncRetriever().execute();
+		// new UpdatePlayerTask().execute();
 	}
 
 	public void refreshRadar() {
 
 		while (rLayout.getChildCount() > 1) {
 
-			rLayout.removeViewAt(2);
+			rLayout.removeAllViews();
 
 		}
 
 		for (String user : users) {
-			
+
 			int index = users.indexOf(user);
 
 			Double uLat = lats.get(index);
@@ -152,11 +160,11 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 				diffLon = 0;
 			}
 
-			int dLat = (int) Math.floor((Math.abs(diffLat) ));
-			int dLon = (int) Math.floor((Math.abs(diffLon) ));
-			
-			System.out.println(dLat +" "+ dLon);
-		
+			int dLat = (int) Math.floor((Math.abs(diffLat)));
+			int dLon = (int) Math.floor((Math.abs(diffLon)));
+
+			System.out.println(dLat + " " + dLon);
+
 			ImageView dot = new ImageView(this);
 			dot.setImageResource(R.drawable.dot_blue);
 
@@ -166,9 +174,8 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 			lp.setMargins(dLat + 150, dLon + 150, 0, 0);
 			dot.setLayoutParams(lp);
 
-			rLayout.addView(dot, index);
+			rLayout.addView(dot);
 			System.out.println("Dot should be added");
-					
 
 		}
 
@@ -208,13 +215,27 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 	public void bitten() {
 
-		Intent intent = new Intent(this, GameScreenZActivity.class);
+		for (int i = 0; i < 10; i++) {
+			ImageView dot = new ImageView(this);
+			dot.setImageResource(R.drawable.dot_blue);
 
-		String emailMessage = email;
+			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.WRAP_CONTENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT);
+			lp.setMargins(10 * i + 150, 10 * i + 150, 0, 0);
+			dot.setLayoutParams(lp);
 
-		intent.putExtra("theEmail", emailMessage);
+			rLayout.addView(dot);
 
-		startActivity(intent);
+		}
+
+	}
+
+	public void remove() {
+
+		while (rLayout.getChildCount() > 1) {
+			rLayout.removeViewAt(1);
+		}
 
 	}
 
