@@ -7,6 +7,7 @@ import java.util.List;
 import softhealth.zombiecatch.gameendpoint.Gameendpoint;
 import softhealth.zombiecatch.gameendpoint.model.CollectionResponseGame;
 import softhealth.zombiecatch.gameendpoint.model.Game;
+import softhealth.zombiecatch.playerendpoint.model.Player;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -27,37 +28,52 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class JoinActivity extends Activity implements LocationListener {
 
 	String userEmail;
-	Button join;
+	Button join, refresh;
 	private LocationManager locationManager;
 	private String provider;
 	private double lat, lon;
 	private String gameTitle;
-	private List<String> gamesName;
-	private LinearLayout gameList;
-	private boolean ready = false;
+	private List<String> gameNames;
+	private ScrollView gameScroll;
+	boolean ready = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join);
 
-		gamesName = new ArrayList<String>();
+		gameNames = new ArrayList<String>();
 		gameTitle = "";
+	
+		
+		gameScroll = (ScrollView) findViewById(R.id.join_scrollView_gameList);
+		
 		join = (Button) findViewById(R.id.join_button);
-		join.setText("Refresh");
-		gameList = (LinearLayout) findViewById(R.id.join_gameList);
 		join.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
 				join();
+
+			}
+		});
+
+		refresh = (Button) findViewById(R.id.join_refresh);
+
+		refresh.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+				refresh();
 
 			}
 		});
@@ -109,58 +125,58 @@ public class JoinActivity extends Activity implements LocationListener {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void refresh() {
+
+		gameNames.clear();
+		new ListOfGameAsyncRetriever().execute();
+
+	}
+
 	public void join() {
 
-		if (gamesName.isEmpty()) {
+		if (ready) {
 
-			// new ListOfGamesAsyncRetriever().execute();
+			goToLobby();
 
 		} else {
 
-			if (ready) {
-				goToLobby();
-			} else {
-
-				Toast.makeText(this, "Select", Toast.LENGTH_SHORT)
-						.show();
-			}
-
+			Toast.makeText(this, "Select a game first", Toast.LENGTH_SHORT).show();
 		}
 
 	}
 
 	public void printGames() {
 
-		if (!gamesName.isEmpty()) {
+		gameScroll.removeAllViews();
+		LinearLayout gameList = new LinearLayout(this);
+		gameList.setGravity(Gravity.CENTER);
 
-			join.setText("Select");
+		for (String s : gameNames) {
 
-			for (String s : gamesName) {
+			
+			final TextView newGame = new TextView(this);
+			
+			newGame.setText(s);
+			newGame.setTextAppearance(this, R.style.PlainText);
+			newGame.setGravity(Gravity.CENTER);
+			newGame.setOnClickListener(new OnClickListener() {
 
-				System.out.println("Printing " + s);
+				@Override
+				public void onClick(View v) {
 
-				TextView newGame = new TextView(this);
+					gameTitle = newGame.getText().toString();
+					
+					join.setText("Join " + gameTitle);
+					
+					ready = true;
 
-				newGame.setText(s);
-				newGame.setTextAppearance(this, R.style.PlainText);
-				newGame.setGravity(Gravity.CENTER);
-				newGame.setOnClickListener(new OnClickListener() {
+				}
+			});
 
-					@Override
-					public void onClick(View v) {
-
-						TextView tv = (TextView) v;
-						gameTitle = tv.getText().toString();
-						join.setText("Join " + gameTitle);
-						ready = true;
-
-					}
-				});
-
-				gameList.addView(newGame);
-
-			}
+			gameList.addView(newGame);
 		}
+
+		gameScroll.addView(gameList);
 
 	}
 
@@ -172,7 +188,6 @@ public class JoinActivity extends Activity implements LocationListener {
 		intent.putExtra("theGame", gameTitle);
 
 		startActivity(intent);
-
 
 	}
 
@@ -256,14 +271,25 @@ public class JoinActivity extends Activity implements LocationListener {
 				return;
 			}
 
-			List<Game> Games = result.getItems();
+			List<Game> games = result.getItems();
+			
 
-			for (Game g : Games) {
+			for (Game g : games) {
 
-				gamesName.add(g.getGameTitle());
+				String gameName = g.getGameTitle();
 
+				if (!(gameNames.contains(gameName))) {
+
+					gameNames.add(gameName);
+					
+
+
+				}
+				
+				
 			}
 
+		
 			printGames();
 
 		}

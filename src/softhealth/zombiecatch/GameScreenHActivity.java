@@ -37,7 +37,6 @@ import android.widget.Toast;
 public class GameScreenHActivity extends Activity implements LocationListener {
 
 	private String email, gameTitle;
-	private Long id;
 	private ImageView radar, image2;
 	private double simLat, simLon;
 	private double lat, lon;
@@ -80,7 +79,6 @@ public class GameScreenHActivity extends Activity implements LocationListener {
 
 			email = extras.getString("theEmail");
 			gameTitle = extras.getString("theGame");
-			id = Long.parseLong(extras.getString("theID"));
 
 		}
 

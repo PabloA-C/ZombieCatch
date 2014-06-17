@@ -120,27 +120,22 @@ public class LobbyActivity extends Activity implements LocationListener {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void loadPlayers() {
-		playersName.clear();
-		new ListOfPlayerAsyncRetriever().execute();
-	}
-
 	public void printPlayers() {
-
-		
-		
 
 		if (playersName.contains(userEmail)) {
 			waiting.setText("Players: ");
 			readyToGo = true;
-			String text = "";
+
+			String text = userEmail;
 
 			for (String s : playersName) {
 
-				text += "\n" + s;
+				if (!s.equals(userEmail)) {
+					text += "\n" + s;
+				}
 
 			}
-			
+
 			System.out.println(text);
 
 			TextView newPlayer = new TextView(this);
@@ -149,8 +144,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 			newPlayer.setGravity(Gravity.CENTER);
 
 			playerScroll.removeAllViews();
-			playerScroll.addView(newPlayer,0);
-			
+			playerScroll.addView(newPlayer, 0);
 
 		}
 
@@ -174,8 +168,8 @@ public class LobbyActivity extends Activity implements LocationListener {
 	}
 
 	public void refresh() {
-
-		loadPlayers();
+		playersName.clear();
+		new ListOfPlayerAsyncRetriever().execute();
 
 	}
 
@@ -288,7 +282,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 				e.printStackTrace();
 			}
 
-			loadPlayers();
+			refresh();
 
 			return null;
 		}
@@ -348,7 +342,7 @@ public class LobbyActivity extends Activity implements LocationListener {
 
 							playersName.add(pMail);
 
-						} 
+						}
 					}
 				}
 

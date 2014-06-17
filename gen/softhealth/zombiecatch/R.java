@@ -71,7 +71,7 @@ public final class R {
         public static final int imageView1=0x7f080015;
         public static final int imageView2=0x7f080014;
         public static final int join_button=0x7f08001e;
-        public static final int join_gameList=0x7f08001d;
+        public static final int join_refresh=0x7f08001d;
         public static final int join_scrollView_gameList=0x7f08001c;
         public static final int join_title=0x7f08001b;
         public static final int levelUp_button_lvlHuman=0x7f080024;

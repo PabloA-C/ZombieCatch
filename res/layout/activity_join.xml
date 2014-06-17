@@ -17,15 +17,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/join_gameList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </LinearLayout>
+        
         
     </ScrollView>
 
+       <Button
+        android:id="@+id/join_refresh"
+        style="@style/NormalButton"
+        android:text="Refresh" />
+    
     <Button
         android:id="@+id/join_button"
         style="@style/NormalButton"
